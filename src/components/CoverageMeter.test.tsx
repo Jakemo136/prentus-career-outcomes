@@ -47,6 +47,15 @@ describe('CoverageMeter', () => {
     )
   })
 
+  it('accepts tone="brand" without changing accessible value semantics', () => {
+    render(
+      <CoverageMeter percent={30} label="Verified earnings" tone="brand" />
+    )
+    expect(
+      screen.getByRole('progressbar', { name: /verified earnings/i })
+    ).toHaveAttribute('aria-valuenow', '30')
+  })
+
   it('reflects different percents in aria-valuenow regardless of thresholds', () => {
     const { rerender } = render(
       <CoverageMeter percent={20} thresholds={{ low: 30, medium: 60 }} />

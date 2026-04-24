@@ -75,7 +75,7 @@ export function App() {
 
         <section aria-labelledby="sec-coverage" className="space-y-3 max-w-md">
           <h2 id="sec-coverage" className="text-h4 text-ink">CoverageMeter</h2>
-          <CoverageMeter percent={30} label="Verified earnings" />
+          <CoverageMeter percent={30} label="Verified earnings" tone="brand" />
           <CoverageMeter percent={62} label="Outcomes" />
           <CoverageMeter percent={88} label="Surveys" />
         </section>
