@@ -194,11 +194,11 @@
 
   --color-alert-warning-bg:     #FFE2E3;
   --color-alert-warning-fg:     #850103; /* red-700, 8.4:1 on white    */
-  --color-alert-warning-accent: #FF5151; /* from Alerts.svg icon disc  */
+  --color-alert-warning-accent: #EB6769; /* red-300 — icon disc fill   */
 
   --color-alert-caution-bg:     #FFEFE1;
   --color-alert-caution-fg:     #99693E; /* orange-700, 4.6:1 on white */
-  --color-alert-caution-accent: #FFAF67; /* orange anchor              */
+  --color-alert-caution-accent: #FFCFA4; /* orange-300 — icon disc fill*/
 
   --color-alert-info-bg:        #EAE5F9;
   --color-alert-info-fg:        #5B4B87; /* primary-700, 6.9:1 on white*/
