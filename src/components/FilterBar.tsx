@@ -69,30 +69,12 @@ export function FilterBar({
   terms,
   onChange,
 }: FilterBarProps) {
-  const handleProgramChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const v = e.target.value
-    onChange({ ...filters, program: v === '' ? null : v })
-  }
-
-  const handleTermChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const v = e.target.value
-    onChange({ ...filters, term: v === '' ? null : v })
-  }
-
-  const handleSourceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const v = e.target.value
-    onChange({ ...filters, source: v === '' ? null : (v as SourceId) })
-  }
-
-  const handleVerificationChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const v = e.target.value
-    onChange({
-      ...filters,
-      verification:
-        v === '' ? null : (v as NonNullable<DashboardFilters['verification']>),
-    })
+  function setFilter<K extends keyof DashboardFilters>(
+    key: K,
+    rawValue: string,
+  ) {
+    const value = (rawValue === '' ? null : rawValue) as DashboardFilters[K]
+    onChange({ ...filters, [key]: value })
   }
 
   return (
@@ -100,7 +82,7 @@ export function FilterBar({
       <SelectField
         label="Program"
         value={filters.program ?? ''}
-        onChange={handleProgramChange}
+        onChange={(e) => setFilter('program', e.target.value)}
       >
         <option value="">All</option>
         {programs.map((p) => (
@@ -113,7 +95,7 @@ export function FilterBar({
       <SelectField
         label="Graduation term"
         value={filters.term ?? ''}
-        onChange={handleTermChange}
+        onChange={(e) => setFilter('term', e.target.value)}
       >
         <option value="">All</option>
         {terms.map((t) => (
@@ -126,7 +108,7 @@ export function FilterBar({
       <SelectField
         label="Source type"
         value={filters.source ?? ''}
-        onChange={handleSourceChange}
+        onChange={(e) => setFilter('source', e.target.value)}
       >
         <option value="">All</option>
         {SOURCE_OPTIONS.map((o) => (
@@ -139,7 +121,7 @@ export function FilterBar({
       <SelectField
         label="Verification status"
         value={filters.verification ?? ''}
-        onChange={handleVerificationChange}
+        onChange={(e) => setFilter('verification', e.target.value)}
       >
         <option value="">All</option>
         {VERIFICATION_OPTIONS.map((o) => (

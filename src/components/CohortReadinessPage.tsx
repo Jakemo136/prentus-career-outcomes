@@ -4,17 +4,18 @@ import { CohortDrillInPanel } from './CohortDrillInPanel'
 import { CohortRiskTable } from './CohortRiskTable'
 import { FilterBar } from './FilterBar'
 import { ReadinessSummaryStrip } from './ReadinessSummaryStrip'
+import { Section } from './Section'
 import { SourceHealthSection } from './SourceHealthSection'
 import { cohortsToCsv, downloadCsv } from '../lib/exportCsv'
 import { applyFilters } from '../lib/filters'
 import { computeKpisForCohorts } from '../lib/kpis'
+import { parseFilters, writeFilters } from '../lib/urlParams'
 import { useUrlState } from '../lib/useUrlState'
 import type {
   Cohort,
   DashboardFilters,
   InstitutionSnapshot,
   SourceHealth,
-  SourceId,
 } from '../types/readiness'
 
 export interface CohortReadinessPageProps {
@@ -23,50 +24,6 @@ export interface CohortReadinessPageProps {
   sources: SourceHealth[]
   programs: string[]
   terms: string[]
-}
-
-const VERIFICATION_VALUES = new Set(['verified', 'unverified', 'partial'])
-const SOURCE_VALUES = new Set<SourceId>([
-  'verified-earnings',
-  'surveys',
-  'linkedin',
-  'self-report',
-])
-
-function parseFilters(params: URLSearchParams): DashboardFilters {
-  const source = params.get('source')
-  const verification = params.get('verification')
-  return {
-    program: params.get('program') || null,
-    term: params.get('term') || null,
-    source:
-      source && SOURCE_VALUES.has(source as SourceId)
-        ? (source as SourceId)
-        : null,
-    verification:
-      verification && VERIFICATION_VALUES.has(verification)
-        ? (verification as DashboardFilters['verification'])
-        : null,
-  }
-}
-
-function writeFilters(
-  params: URLSearchParams,
-  filters: DashboardFilters,
-): URLSearchParams {
-  const next = new URLSearchParams(params)
-  const fields: (keyof DashboardFilters)[] = [
-    'program',
-    'term',
-    'source',
-    'verification',
-  ]
-  for (const key of fields) {
-    const value = filters[key]
-    if (value) next.set(key, value)
-    else next.delete(key)
-  }
-  return next
 }
 
 export function CohortReadinessPage({
@@ -136,24 +93,18 @@ export function CohortReadinessPage({
       onExport={handleExport}
     >
       <div className="flex flex-col gap-8">
-        <section aria-labelledby="sec-filters" className="flex flex-col gap-3">
-          <h2 id="sec-filters" className="text-h4 text-ink">
-            Filter cohorts
-          </h2>
+        <Section heading="Filter cohorts">
           <FilterBar
             filters={filters}
             programs={programs}
             terms={terms}
             onChange={handleFilterChange}
           />
-        </section>
+        </Section>
 
         <ReadinessSummaryStrip kpis={kpis} />
 
-        <section aria-labelledby="sec-cohorts" className="flex flex-col gap-3">
-          <h2 id="sec-cohorts" className="text-h4 text-ink">
-            Cohort risk
-          </h2>
+        <Section heading="Cohort risk">
           {/* Cap height so Source Health's vertical position doesn't drift
               with row count. Header stays visible; body scrolls within. */}
           <div className="rounded-md border border-edge-subtle bg-surface-raised max-h-96 overflow-y-auto">
@@ -163,7 +114,7 @@ export function CohortReadinessPage({
               selectedCohortId={drillCohort?.id ?? null}
             />
           </div>
-        </section>
+        </Section>
 
         <SourceHealthSection sources={sources} />
       </div>
