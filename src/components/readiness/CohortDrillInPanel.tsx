@@ -69,8 +69,20 @@ export function CohortDrillInPanel({
     if (cohort) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setRenderCohort(cohort)
-      const rafId = requestAnimationFrame(() => setIsVisible(true))
-      return () => cancelAnimationFrame(rafId)
+      // Double rAF: a single rAF fires BEFORE the paint that renders the
+      // off-screen state, so the transition has no "from" frame and the
+      // drawer just pops in. Nesting rAFs guarantees one paint happens
+      // at translate-x-full, then the next frame flips to translate-x-0
+      // and the browser interpolates between the two.
+      let outerRaf = 0
+      let innerRaf = 0
+      outerRaf = requestAnimationFrame(() => {
+        innerRaf = requestAnimationFrame(() => setIsVisible(true))
+      })
+      return () => {
+        cancelAnimationFrame(outerRaf)
+        cancelAnimationFrame(innerRaf)
+      }
     }
     setIsVisible(false)
     const timeoutId = window.setTimeout(
