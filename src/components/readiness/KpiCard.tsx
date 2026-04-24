@@ -75,13 +75,15 @@ export function KpiCard({
       <p className={`${VALUE_SIZE[variant]} text-ink font-semibold`}>
         {formatValue(metric)}
       </p>
-      <div className="flex items-center gap-2">
-        <TrendIndicator
-          direction={direction}
-          deltaPct={metric.deltaPct}
-          polarity={metric.polarity}
-        />
-      </div>
+      {!Number.isNaN(metric.value) && (
+        <div className="flex items-center gap-2">
+          <TrendIndicator
+            direction={direction}
+            deltaPct={metric.deltaPct}
+            polarity={metric.polarity}
+          />
+        </div>
+      )}
       {caption && <p className="text-body-xs text-muted">{caption}</p>}
       {coveragePct !== undefined && (
         <CoverageMeter

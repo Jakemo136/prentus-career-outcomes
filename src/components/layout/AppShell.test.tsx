@@ -10,7 +10,9 @@ describe('AppShell', () => {
         <div>content-here</div>
       </AppShell>,
     )
-    expect(screen.getByRole('complementary', { name: /primary navigation/i })).toBeInTheDocument()
+    // aria-label moved from <aside> to the inner <nav> so the landmark
+    // name sits on the correct landmark.
+    expect(screen.getByRole('navigation', { name: /primary navigation/i })).toBeInTheDocument()
   })
 
   it('renders the TopBar with the page title as h1', () => {

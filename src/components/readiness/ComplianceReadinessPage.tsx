@@ -92,7 +92,7 @@ export function ComplianceReadinessPage({
         <Section heading="Cohort risk">
           {/* Cap height so Source Health's vertical position doesn't drift
               with row count. Header stays visible; body scrolls within. */}
-          <div className="rounded-md border border-edge-subtle bg-surface-raised max-h-96 overflow-y-auto">
+          <div className="rounded-md border border-edge-subtle bg-surface-raised max-h-96 overflow-auto">
             <CohortRiskTable
               cohorts={filteredCohorts}
               onRowClick={handleRowClick}
