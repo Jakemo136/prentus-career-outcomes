@@ -39,3 +39,13 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 
 - `CohortDrillInPanel` focus trap + return-focus-on-close explicitly deferred. Current panel auto-focuses the close button on open; full trap + trigger-restore comes when the page owns the drill-in trigger (Wave 4).
 - "Program" label collides between `FilterBar` (`<select>`) and `CohortRiskTable` column header (`<button>`) — E2E works around by using `getByRole('combobox', { name })` for selects. Not a regression, just a reminder to keep ARIA roles distinct in future wiring.
+
+## Wave 3 — Section wrappers
+
+- **Status:** PR open (awaiting merge).
+- **Branch:** `build/wave-3-sections`.
+- **Components (3):** `AppShell`, `ReadinessSummaryStrip`, `SourceHealthSection`.
+- **Built in parallel:** single dispatch, strict two-file boundaries, scoped vitest. No conflicts.
+- **Unit tests:** 14 new (5 + 5 + 4). Full suite: 17 files, **96 tests passing**.
+- **E2E:** existing 9 tests still pass against the refactored `App.tsx` (now uses `AppShell` + `ReadinessSummaryStrip` + `SourceHealthSection` instead of inline layout). One selector updated: sidebar active item matches `name: 'Readiness'` (the actual Sidebar label is short; only the TopBar h1 has the full "Career Outcomes Readiness").
+- **Gallery/App.tsx:** refactored to use section wrappers — sidebar + topbar via `AppShell`, KPI strip via `ReadinessSummaryStrip`, source grid via `SourceHealthSection`. The cohort table and primitives showcase stay inline. Wave 4 replaces `App.tsx` entirely with `ReadinessDashboardPage` that owns URL state.
