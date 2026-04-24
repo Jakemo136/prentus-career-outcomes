@@ -1,4 +1,4 @@
-# Component Inventory — Career Outcomes Readiness Dashboard
+# Component Inventory — Cohort Readiness
 
 Generated from `UI_REQUIREMENTS.md`. One entry per component. Format is fixed (matches `/ui-interview` spec) so `/build-page` and dependency-resolver subagents can consume it.
 
@@ -36,29 +36,29 @@ Notes on field usage for this prototype:
 - Complexity: low
 - Build status: [ ] not started
 
-## ReadinessDashboardPage
-- Page: ReadinessDashboard
+## CohortReadinessPage
+- Page: CohortReadiness
 - Dependencies: AppShell, FilterBar, ReadinessSummaryStrip, CohortRiskTable, SourceHealthSection, CohortDrillInPanel
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## FilterBar
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: none
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## KpiCard
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: TrendIndicator
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## ReadinessSummaryStrip
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: KpiCard
 - GraphQL: none (mock)
 - Complexity: low
@@ -86,28 +86,28 @@ Notes on field usage for this prototype:
 - Build status: [ ] not started
 
 ## CohortRiskTable
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: RiskStatusBadge, TrendIndicator, CoverageMeter
 - GraphQL: none (mock)
 - Complexity: high
 - Build status: [ ] not started
 
 ## SourceCard
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: CoverageMeter
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## SourceHealthSection
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: SourceCard
 - GraphQL: none (mock)
 - Complexity: low
 - Build status: [ ] not started
 
 ## CohortDrillInPanel
-- Page: ReadinessDashboard
+- Page: CohortReadiness
 - Dependencies: CoverageMeter, RiskStatusBadge
 - GraphQL: none (mock)
 - Complexity: high

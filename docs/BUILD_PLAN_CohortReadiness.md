@@ -1,4 +1,4 @@
-# Build Plan — ReadinessDashboard
+# Build Plan — Cohort Readiness
 
 Generated from `COMPONENT_INVENTORY.md`. All 15 components (page-specific + shared) grouped into parallelizable waves by dependency depth. Components in the same wave have no inter-wave dependency and MUST be dispatched in a single parallel Agent call.
 
@@ -10,7 +10,7 @@ No dependencies. Pure presentational primitives.
 |---|---|---|
 | `SidebarNavItem` | shared | low |
 | `TopBar` | shared | low |
-| `FilterBar` | ReadinessDashboard | medium |
+| `FilterBar` | CohortReadiness | medium |
 | `RiskStatusBadge` | shared | low |
 | `TrendIndicator` | shared | low |
 | `CoverageMeter` | shared | low |
@@ -20,24 +20,24 @@ No dependencies. Pure presentational primitives.
 | Component | Page | Depends on (all Wave 1) |
 |---|---|---|
 | `Sidebar` | shared | SidebarNavItem |
-| `KpiCard` | ReadinessDashboard | TrendIndicator |
-| `SourceCard` | ReadinessDashboard | CoverageMeter |
-| `CohortRiskTable` | ReadinessDashboard | RiskStatusBadge, TrendIndicator, CoverageMeter |
-| `CohortDrillInPanel` | ReadinessDashboard | CoverageMeter, RiskStatusBadge |
+| `KpiCard` | CohortReadiness | TrendIndicator |
+| `SourceCard` | CohortReadiness | CoverageMeter |
+| `CohortRiskTable` | CohortReadiness | RiskStatusBadge, TrendIndicator, CoverageMeter |
+| `CohortDrillInPanel` | CohortReadiness | CoverageMeter, RiskStatusBadge |
 
 ## Wave 3 — Sections + Shell (3)
 
 | Component | Page | Depends on |
 |---|---|---|
 | `AppShell` | shared | Sidebar (W2), TopBar (W1) |
-| `ReadinessSummaryStrip` | ReadinessDashboard | KpiCard (W2) |
-| `SourceHealthSection` | ReadinessDashboard | SourceCard (W2) |
+| `ReadinessSummaryStrip` | CohortReadiness | KpiCard (W2) |
+| `SourceHealthSection` | CohortReadiness | SourceCard (W2) |
 
 ## Wave 4 — Page (1)
 
 | Component | Page | Depends on |
 |---|---|---|
-| `ReadinessDashboardPage` | ReadinessDashboard | AppShell (W3), FilterBar (W1), ReadinessSummaryStrip (W3), CohortRiskTable (W2), SourceHealthSection (W3), CohortDrillInPanel (W2) |
+| `CohortReadinessPage` | CohortReadiness | AppShell (W3), FilterBar (W1), ReadinessSummaryStrip (W3), CohortRiskTable (W2), SourceHealthSection (W3), CohortDrillInPanel (W2) |
 
 ## Wave 0 — E2E scaffolding + prep (pre-Wave 1)
 

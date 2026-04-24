@@ -1,4 +1,4 @@
-import { ReadinessDashboardPage } from './components/ReadinessDashboardPage'
+import { CohortReadinessPage } from './components/CohortReadinessPage'
 import {
   MOCK_COHORTS,
   MOCK_INSTITUTION,
@@ -9,7 +9,7 @@ import {
 
 export function App() {
   return (
-    <ReadinessDashboardPage
+    <CohortReadinessPage
       institution={MOCK_INSTITUTION}
       cohorts={MOCK_COHORTS}
       sources={MOCK_SOURCES}
