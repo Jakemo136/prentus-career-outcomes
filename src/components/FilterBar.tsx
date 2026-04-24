@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useId, type ReactNode } from 'react'
 import type { DashboardFilters, SourceId } from '../types/readiness'
 import { Icon } from './Icon'
 
@@ -38,11 +38,19 @@ interface SelectFieldProps {
 }
 
 function SelectField({ label, value, onChange, children }: SelectFieldProps) {
+  const id = useId()
   return (
-    <label className={labelClass}>
-      <span className={labelTextClass}>{label}</span>
+    <div className={labelClass}>
+      <label htmlFor={id} className={labelTextClass}>
+        {label}
+      </label>
       <div className="relative">
-        <select className={selectClass} value={value} onChange={onChange}>
+        <select
+          id={id}
+          className={selectClass}
+          value={value}
+          onChange={onChange}
+        >
           {children}
         </select>
         <Icon
@@ -51,7 +59,7 @@ function SelectField({ label, value, onChange, children }: SelectFieldProps) {
           className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"
         />
       </div>
-    </label>
+    </div>
   )
 }
 
