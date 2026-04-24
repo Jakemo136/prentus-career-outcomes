@@ -11,7 +11,14 @@ Built as a take-home interview prototype. Mock data only — no backend, no auth
 
 ## Live demo
 
-_(deploy URL pending — will be added after Vercel deploy)_
+**https://prentus-project-ten.vercel.app**
+
+Try:
+- Click any cohort row → drawer slides in with source breakdown and suggested action
+- Change the Program filter → URL updates, KPI strip recomputes (graduate-weighted), cohort table re-filters
+- Share the URL with filters / an open drill-in applied — reload preserves state
+- Click "Export" → downloads the current filtered cohort list as CSV
+- OS "reduce motion" setting is respected on the drawer transition
 
 ## Documents
 
