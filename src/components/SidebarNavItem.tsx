@@ -45,7 +45,7 @@ export function SidebarNavItem({
         </span>
       ) : null}
       <span className="flex-1">{label}</span>
-      {disabled ? <Icon name="lock" size={12} className="text-muted" /> : null}
+      {disabled ? <Icon name="lock" size={12} className="text-ink" /> : null}
     </button>
   )
 }

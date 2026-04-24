@@ -26,7 +26,7 @@ const VERIFICATION_OPTIONS: ReadonlyArray<{
 const selectClass =
   'rounded-md border border-edge bg-surface-raised text-body-s text-ink px-3 py-2'
 const labelClass = 'flex flex-col gap-1'
-const labelTextClass = 'text-body-xs text-muted'
+const labelTextClass = 'text-body-xs text-body font-medium'
 
 export function FilterBar({
   filters,
