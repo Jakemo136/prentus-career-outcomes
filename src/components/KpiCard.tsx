@@ -10,8 +10,8 @@ export interface KpiCardProps {
   metric: Metric
   /**
    * 'hero': primary purple accent, value rendered as h2 size. Lead KPI.
-   * 'urgent': warm orange tint (alert-warning-bg). Flags metrics that
-   *   need attention without the confrontational red of an error state.
+   * 'urgent': warm orange tint (alert-caution-bg). Flags metrics that
+   *   need attention without the confrontational red of a warning state.
    * 'default': standard neutral card.
    */
   variant?: KpiVariant
@@ -26,7 +26,7 @@ export interface KpiCardProps {
 
 const VARIANT_CLASS: Record<KpiVariant, string> = {
   hero: 'bg-surface-raised shadow-card border-primary-200',
-  urgent: 'bg-alert-warning-bg border-edge-subtle',
+  urgent: 'bg-alert-caution-bg border-edge-subtle',
   default: 'bg-surface-raised shadow-card border-edge-subtle',
 }
 

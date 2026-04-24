@@ -34,6 +34,8 @@ export interface Metric {
   unit: '%' | 'count'
 }
 
+export type IssueSeverity = 'warning' | 'caution'
+
 export interface SourceHealth {
   id: SourceId
   name: string
@@ -43,6 +45,13 @@ export interface SourceHealth {
   trust: TrustLevel
   hasIssue: boolean
   issueNote?: string
+  /**
+   * Severity drives the alert banner tone on SourceCard.
+   * 'warning' (red): coverage/quality issues — data is actively wrong or absent.
+   * 'caution' (orange, default): staleness / freshness — data exists but is aging.
+   * Optional; defaults to 'caution' when absent and hasIssue is true.
+   */
+  issueSeverity?: IssueSeverity
 }
 
 export interface Cohort {

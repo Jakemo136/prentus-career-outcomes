@@ -1,5 +1,5 @@
 import { useId } from 'react'
-import type { SourceHealth } from '../types/readiness'
+import type { IssueSeverity, SourceHealth } from '../types/readiness'
 import { CoverageMeter } from './CoverageMeter'
 import { Icon } from './Icon'
 
@@ -24,6 +24,16 @@ const trustLabel = {
   medium: 'Medium',
   low: 'Low',
 } as const
+
+const alertBannerClass: Record<IssueSeverity, string> = {
+  warning: 'bg-alert-warning-bg',
+  caution: 'bg-alert-caution-bg',
+}
+
+const alertIconDiscClass: Record<IssueSeverity, string> = {
+  warning: 'bg-alert-warning-accent',
+  caution: 'bg-alert-caution-accent',
+}
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', {
@@ -62,19 +72,23 @@ export function SourceCard({ source, isHero = false }: SourceCardProps) {
       <span className="text-body-xs text-muted">
         Updated {formatDate(source.lastRefreshedAt)}
       </span>
-      {source.hasIssue && (
-        <div
-          role="alert"
-          className="flex items-start gap-2 bg-alert-warning-bg rounded-xs px-3 py-2"
-        >
-          <Icon
-            name="cancel-circle"
-            size={14}
-            className="text-alert-warning-fg mt-0.5"
-          />
-          <span className="text-body-xs text-ink">{issueNote}</span>
-        </div>
-      )}
+      {source.hasIssue && (() => {
+        const severity: IssueSeverity = source.issueSeverity ?? 'caution'
+        return (
+          <div
+            role="alert"
+            className={`flex items-start gap-2 rounded-xs px-3 py-2 ${alertBannerClass[severity]}`}
+          >
+            <span
+              className={`shrink-0 w-6 h-6 rounded-xs flex items-center justify-center ${alertIconDiscClass[severity]}`}
+              aria-hidden="true"
+            >
+              <Icon name="cancel-circle" size={14} className="text-ink" />
+            </span>
+            <span className="text-body-xs text-ink">{issueNote}</span>
+          </div>
+        )
+      })()}
     </article>
   )
 }
