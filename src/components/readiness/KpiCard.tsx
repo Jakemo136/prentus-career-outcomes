@@ -43,6 +43,10 @@ function directionFromDelta(deltaPct: number): TrendDirection {
 }
 
 function formatValue(metric: Metric): string {
+  // Empty-filter state: computeKpisForCohorts returns NaN for coverage
+  // metrics when the filtered cohort list is empty. Render an em-dash
+  // instead of "NaN%" so the strip communicates "no data" honestly.
+  if (Number.isNaN(metric.value)) return '—'
   if (metric.unit === '%') return `${Math.round(metric.value)}%`
   return Math.trunc(metric.value).toLocaleString()
 }
