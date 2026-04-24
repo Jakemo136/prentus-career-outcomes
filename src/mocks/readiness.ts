@@ -287,8 +287,11 @@ export const MOCK_INSTITUTION: InstitutionSnapshot = {
       polarity: 'lower-is-better',
       unit: '%',
     },
+    // 3 at-risk cohort rows in MOCK_COHORTS (cyb-sp25, cyb-f24, se-f24)
+    // — the displayed count must match the table, or the narrative
+    // breaks ("strip says 2, but I can see 3 in the table").
     programsAtRisk: {
-      value: 2,
+      value: 3,
       deltaPct: 0,
       polarity: 'lower-is-better',
       unit: 'count',
