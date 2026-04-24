@@ -195,7 +195,7 @@ export function CohortRiskTable({
                 data-cohort-id={cohort.id}
                 onClick={() => onRowClick?.(cohort.id)}
                 onKeyDown={(e) => handleRowKeyDown(e, cohort.id)}
-                className={`border-t border-edge-subtle cursor-pointer hover:bg-surface-muted focus:outline-none focus-visible:bg-surface-muted ${selectedClass}`}
+                className={`border-t border-edge-subtle cursor-pointer hover:bg-surface-muted focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:-outline-offset-2 ${selectedClass}`}
               >
                 <td className="py-3 px-3 align-middle">
                   <div className="flex flex-col gap-1">

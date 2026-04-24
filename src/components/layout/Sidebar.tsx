@@ -58,15 +58,12 @@ const ITEMS: NavItem[] = [
 
 export function Sidebar({ activeKey = "readiness", onSelect }: SidebarProps) {
   return (
-    <aside
-      aria-label="Primary navigation"
-      className="w-60 h-screen bg-surface border-r border-edge-subtle flex flex-col gap-4 p-4"
-    >
+    <aside className="w-60 h-screen bg-surface border-r border-edge-subtle flex flex-col gap-4 p-4">
       <div className="flex items-center gap-2 px-2 py-1">
         <img src={markUrl} alt="" className="h-6 w-auto" aria-hidden="true" />
         <img src={wordmarkUrl} alt="Prentus" className="h-4 w-auto" />
       </div>
-      <nav className="flex flex-col gap-1">
+      <nav aria-label="Primary navigation" className="flex flex-col gap-1">
         {ITEMS.map((item) => (
           <SidebarNavItem
             key={item.key}

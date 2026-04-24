@@ -27,7 +27,7 @@ export function AppShell({
       <Sidebar activeKey={activeNavKey ?? 'readiness'} />
       <div className="flex-1 flex flex-col min-w-0">
         <TopBar title={pageTitle} subtitle={pageSubtitle} onExport={onExport} />
-        <div className="flex-1 p-8">{children}</div>
+        <main className="flex-1 p-8">{children}</main>
       </div>
     </div>
   )

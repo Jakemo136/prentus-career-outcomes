@@ -166,7 +166,7 @@
   /* Text */
   --color-ink:        #232B2B; /* heading text / "true black" — Core/Colour.png, Grey_Tints.svg */
   --color-body:       #404040; /* body copy                        */
-  --color-muted:      #737373; /* placeholder / disabled           */
+  --color-muted:      #595959; /* placeholder / disabled — bumped from #737373 for AA (4.5:1) on surface-muted and alert-caution-bg tints */
   --color-on-primary: #FFFFFF;
 
   /* Borders */

@@ -3,12 +3,10 @@
  *
  * A controlled right-side drawer for cohort details.
  *
- * Deferrals / out-of-scope:
- * - Exhaustive focus trap: the prototype only lands focus on the close
- *   button on open. A real focus trap can come later via a library
- *   (e.g. focus-trap-react).
- * - Return focus on close: the parent owns the trigger row and is
- *   responsible for returning focus when the panel closes.
+ * Focus handling:
+ * - On open: focus lands on the close button.
+ * - While open: Tab / Shift+Tab wrap within the dialog (focus trap).
+ * - On close: the parent owns return-focus-to-trigger via useReturnFocus.
  */
 import { useEffect, useId, useRef, useState } from 'react'
 import { formatShortDate } from '../../lib/formatDate'
@@ -46,6 +44,8 @@ export function CohortDrillInPanel({
 }: CohortDrillInPanelProps) {
   const headingId = useId()
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const asideRef = useRef<HTMLDivElement>(null)
+  const prototypeHintId = useId()
   const isOpen = cohort !== null
 
   // Two-state animation dance:
@@ -95,7 +95,32 @@ export function CohortDrillInPanel({
   useEffect(() => {
     if (!isOpen) return
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+      if (e.key !== 'Tab') return
+      const root = asideRef.current
+      if (!root) return
+      const focusables = Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter(
+        (el) =>
+          !el.hasAttribute('disabled') && el.offsetParent !== null,
+      )
+      if (focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      const active = document.activeElement
+      if (e.shiftKey && active === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus()
+      }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
@@ -116,7 +141,12 @@ export function CohortDrillInPanel({
         onClick={onClose}
         aria-hidden="true"
       />
-      <aside
+      {/* Using <div role="dialog"> rather than <aside role="dialog">
+          because <aside> has an implicit role=complementary and axe
+          rejects that → dialog remap. The visual/semantic outcome is
+          identical. */}
+      <div
+        ref={asideRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={headingId}
@@ -175,24 +205,29 @@ export function CohortDrillInPanel({
             <p className="text-body-s text-body">{renderCohort.suggestedAction}</p>
           </section>
 
-          <section className="flex gap-2">
-            <button
-              type="button"
-              title="Prototype — not wired up"
-              className="rounded-md border border-edge-strong px-3 py-1.5 text-body-s"
-            >
-              Export
-            </button>
-            <button
-              type="button"
-              title="Prototype — not wired up"
-              className="rounded-md border border-edge-strong px-3 py-1.5 text-body-s"
-            >
-              View full records →
-            </button>
+          <section className="flex flex-col gap-2">
+            <div className="flex gap-2">
+              <button
+                type="button"
+                aria-describedby={prototypeHintId}
+                className="rounded-md border border-edge-strong px-3 py-1.5 text-body-s"
+              >
+                Export
+              </button>
+              <button
+                type="button"
+                aria-describedby={prototypeHintId}
+                className="rounded-md border border-edge-strong px-3 py-1.5 text-body-s"
+              >
+                View full records →
+              </button>
+            </div>
+            <p id={prototypeHintId} className="text-body-xs text-muted italic">
+              Prototype — not wired up.
+            </p>
           </section>
         </div>
-      </aside>
+      </div>
     </>
   )
 }
