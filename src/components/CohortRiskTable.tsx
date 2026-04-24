@@ -173,6 +173,7 @@ export function CohortRiskTable({
                 key={cohort.id}
                 tabIndex={0}
                 aria-selected={isSelected}
+                data-cohort-id={cohort.id}
                 onClick={() => onRowClick?.(cohort.id)}
                 onKeyDown={(e) => handleRowKeyDown(e, cohort.id)}
                 className={`border-t border-edge-subtle cursor-pointer hover:bg-surface-muted focus:outline-none focus-visible:bg-surface-muted ${selectedClass}`}
