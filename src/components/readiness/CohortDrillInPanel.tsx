@@ -10,7 +10,7 @@
  * - Return focus on close: the parent owns the trigger row and is
  *   responsible for returning focus when the panel closes.
  */
-import { useEffect, useId, useRef } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { formatShortDate } from '../../lib/formatDate'
 import type { Cohort, SourceId } from '../../types/readiness'
 import { RiskStatusBadge } from '../ui/RiskStatusBadge'
@@ -45,6 +45,20 @@ export function CohortDrillInPanel({
   const headingId = useId()
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const isOpen = cohort !== null
+  // `isEntering` is true on the very first frame after mount so the
+  // drawer paints offscreen (translate-x-full), then flips to false on
+  // the next RAF — that triggers the 200ms transition. With
+  // motion-reduce:transition-none the transform applies instantly.
+  const [isEntering, setIsEntering] = useState(true)
+
+  useEffect(() => {
+    if (!isOpen) return
+    // Flip to entered state on next frame so the transition plays.
+    // When the drawer closes it unmounts (return null below), so the
+    // `true` initial state is re-established naturally on the next open.
+    const id = requestAnimationFrame(() => setIsEntering(false))
+    return () => cancelAnimationFrame(id)
+  }, [isOpen])
 
   useEffect(() => {
     if (!isOpen) return
@@ -64,7 +78,9 @@ export function CohortDrillInPanel({
   return (
     <>
       <div
-        className="fixed inset-0 bg-ink/40 z-40"
+        className={`fixed inset-0 bg-ink/40 z-40 transition-opacity duration-200 ease-out motion-reduce:transition-none ${
+          isEntering ? 'opacity-0' : 'opacity-100'
+        }`}
         onClick={onClose}
         aria-hidden="true"
       />
@@ -72,7 +88,9 @@ export function CohortDrillInPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby={headingId}
-        className="fixed top-0 right-0 h-screen w-drawer bg-surface-raised shadow-lg z-50 flex flex-col"
+        className={`fixed top-0 right-0 h-screen w-drawer bg-surface-raised shadow-lg z-50 flex flex-col transform transition-transform duration-200 ease-out motion-reduce:transition-none ${
+          isEntering ? 'translate-x-full' : 'translate-x-0'
+        }`}
       >
         <header className="flex items-center justify-between px-6 py-4 border-b border-edge-subtle">
           <div>
