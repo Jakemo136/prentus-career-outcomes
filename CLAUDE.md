@@ -15,10 +15,39 @@
   - `--text-h3` → `text-h3`; `--text-body-s` → `text-body-s`
   - `--radius-md` → `rounded-md`; `--shadow-card` → `shadow-card`
 - **Prefer semantic utilities over primitives** in components
-  (`text-ink` over `text-grey-600`, `bg-surface` over `bg-grey-50`).
+  (`text-ink` over `text-grey-600`, `bg-surface` over `bg-grey-50`,
+  `bg-alert-success-bg` over `bg-green-100`).
 - **Tailwind JIT gotcha:** class names must be literal strings.
   Do NOT use template interpolation like `` `bg-${color}-500` `` — JIT
   won't see it. Use explicit maps (`const tone = { ok: 'bg-green-500', bad: 'bg-red-500' }`).
+
+### Figma-sourced colors only
+
+**Every color value in `tokens.css` must come from an authoritative
+Figma export in `/Users/jakemosher/Workspace/prentus tokens/`:**
+
+- `Core_colors.svg` — page surface + heading text anchors
+- `Primary_Tints.svg` — purple / green / orange ramps (9 stops each)
+- `Grey_Tints.svg` — neutrals
+- `Alert_Tints.svg` — red / error ramp
+- `Alerts.svg`, `Tags.svg`, `Nav-item.svg` — semantic usage examples
+
+Rules:
+
+- Do NOT invent new ramp stops, interpolate between two stops, or
+  pick "close enough" hex values. If a color isn't already in the
+  SVG exports, stop and re-export from Figma rather than guessing.
+- Do NOT use `text-[#…]` arbitrary values in components. Ever.
+- Do NOT hand-roll inline `<svg>` icons. Use `<Icon name="…" />`
+  which draws from `src/assets/icons/` (the vendored Prentus set
+  of 315 SVGs). If an icon isn't in the set, re-export from Figma.
+- Alert / status tints use the semantic aliases
+  (`bg-alert-success-bg`, `bg-alert-warning-bg`, `bg-alert-error-bg`,
+  `bg-alert-info-bg`) — not raw ramp stops — so the semantic
+  intention is clear in the code.
+- Text contrast on any tinted background must meet WCAG AA
+  (4.5:1 for body, 3:1 for large text). The alert-fg tokens in
+  `tokens.css` are pre-validated; prefer them over ramp stops.
 
 ## Testing
 
