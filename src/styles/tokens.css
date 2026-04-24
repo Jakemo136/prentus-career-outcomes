@@ -205,13 +205,17 @@
   --color-alert-info-accent:    #987DE1; /* primary anchor             */
 
   /* ─────────────────────────────────────────────────────────────
-   * RADIUS — exposes `rounded-xs` … `rounded-xl`.
+   * RADIUS — exposes `rounded-xs` … `rounded-xl` + `rounded-full`.
+   * `rounded-full` is a geometric primitive (circle / pill), not
+   * drift — Alerts.svg uses <circle> for icon discs and avatars,
+   * and there's no way to express that in Tailwind without it.
    * ───────────────────────────────────────────────────────────── */
   --radius-xs: 4px;   /* list rows            */
   --radius-sm: 6px;
   --radius-md: 8px;   /* cards, buttons       */
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --radius-full: 9999px; /* circles, pills    */
 
   /* ─────────────────────────────────────────────────────────────
    * SHADOWS — exposes `shadow-card`, `shadow-sm`, `shadow-md`, `shadow-lg`.

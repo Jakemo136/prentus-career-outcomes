@@ -77,10 +77,10 @@ export function SourceCard({ source, isHero = false }: SourceCardProps) {
         return (
           <div
             role="alert"
-            className={`flex items-start gap-2 rounded-xs px-3 py-2 ${alertBannerClass[severity]}`}
+            className={`flex items-center gap-2 rounded-xs px-3 py-2 ${alertBannerClass[severity]}`}
           >
             <span
-              className={`shrink-0 w-6 h-6 rounded-xs flex items-center justify-center ${alertIconDiscClass[severity]}`}
+              className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${alertIconDiscClass[severity]}`}
               aria-hidden="true"
             >
               <Icon name="cancel-circle" size={14} className="text-ink" />
