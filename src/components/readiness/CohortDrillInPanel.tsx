@@ -38,6 +38,8 @@ const SOURCE_ORDER: SourceId[] = [
   'self-report',
 ]
 
+const TRANSITION_MS = 200
+
 export function CohortDrillInPanel({
   cohort,
   onClose,
@@ -45,20 +47,38 @@ export function CohortDrillInPanel({
   const headingId = useId()
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const isOpen = cohort !== null
-  // `isEntering` is true on the very first frame after mount so the
-  // drawer paints offscreen (translate-x-full), then flips to false on
-  // the next RAF — that triggers the 200ms transition. With
-  // motion-reduce:transition-none the transform applies instantly.
-  const [isEntering, setIsEntering] = useState(true)
 
+  // Two-state animation dance:
+  // - `renderCohort` trails the `cohort` prop: set immediately on open,
+  //   cleared TRANSITION_MS later on close. That keeps the DOM mounted
+  //   through the exit transition.
+  // - `isVisible` drives the actual CSS transform / opacity: flips to
+  //   true on the frame after mount (so the browser paints the
+  //   off-screen state first, then transitions), and back to false
+  //   when cohort becomes null (triggering the exit).
+  const [renderCohort, setRenderCohort] = useState<Cohort | null>(cohort)
+  const [isVisible, setIsVisible] = useState(false)
+
+  // The setState-in-effect lint rule flags the setRenderCohort calls
+  // below, but the pattern IS canonical for "delayed unmount through
+  // an exit transition": state has to follow a prop and a timer, and
+  // there's no external system that cleanly substitutes. Disabled
+  // per-line with explanation rather than inventing a workaround that
+  // makes the code harder to read.
   useEffect(() => {
-    if (!isOpen) return
-    // Flip to entered state on next frame so the transition plays.
-    // When the drawer closes it unmounts (return null below), so the
-    // `true` initial state is re-established naturally on the next open.
-    const id = requestAnimationFrame(() => setIsEntering(false))
-    return () => cancelAnimationFrame(id)
-  }, [isOpen])
+    if (cohort) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setRenderCohort(cohort)
+      const rafId = requestAnimationFrame(() => setIsVisible(true))
+      return () => cancelAnimationFrame(rafId)
+    }
+    setIsVisible(false)
+    const timeoutId = window.setTimeout(
+      () => setRenderCohort(null),
+      TRANSITION_MS,
+    )
+    return () => window.clearTimeout(timeoutId)
+  }, [cohort])
 
   useEffect(() => {
     if (!isOpen) return
@@ -73,13 +93,13 @@ export function CohortDrillInPanel({
     if (isOpen) closeButtonRef.current?.focus()
   }, [isOpen])
 
-  if (!cohort) return null
+  if (!renderCohort) return null
 
   return (
     <>
       <div
         className={`fixed inset-0 bg-ink/40 z-40 transition-opacity duration-200 ease-out motion-reduce:transition-none ${
-          isEntering ? 'opacity-0' : 'opacity-100'
+          isVisible ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
         aria-hidden="true"
@@ -89,15 +109,15 @@ export function CohortDrillInPanel({
         aria-modal="true"
         aria-labelledby={headingId}
         className={`fixed top-0 right-0 h-screen w-drawer bg-surface-raised shadow-lg z-50 flex flex-col transform transition-transform duration-200 ease-out motion-reduce:transition-none ${
-          isEntering ? 'translate-x-full' : 'translate-x-0'
+          isVisible ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <header className="flex items-center justify-between px-6 py-4 border-b border-edge-subtle">
           <div>
             <h2 id={headingId} className="text-h4 text-ink">
-              {cohort.program}
+              {renderCohort.program}
             </h2>
-            <p className="text-body-xs text-muted mt-1">{cohort.term}</p>
+            <p className="text-body-xs text-muted mt-1">{renderCohort.term}</p>
           </div>
           <button
             ref={closeButtonRef}
@@ -112,9 +132,9 @@ export function CohortDrillInPanel({
         <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-6">
           <section className="flex items-center justify-between">
             <span className="text-body-m text-ink">
-              {cohort.graduates} graduates
+              {renderCohort.graduates} graduates
             </span>
-            <RiskStatusBadge status={cohort.risk} />
+            <RiskStatusBadge status={renderCohort.risk} />
           </section>
 
           <section className="flex flex-col gap-3">
@@ -123,7 +143,7 @@ export function CohortDrillInPanel({
               <CoverageMeter
                 key={id}
                 label={sourceLabels[id]}
-                percent={cohort.sourceMix[id]}
+                percent={renderCohort.sourceMix[id]}
                 tone={id === 'verified-earnings' ? 'brand' : 'threshold'}
               />
             ))}
@@ -131,16 +151,16 @@ export function CohortDrillInPanel({
 
           <section className="flex flex-col gap-1">
             <span className="text-body-s text-body">
-              Last verified {formatShortDate(cohort.lastVerifiedAt)}
+              Last verified {formatShortDate(renderCohort.lastVerifiedAt)}
             </span>
             <span className="text-body-s text-body">
-              {cohort.staleMissingPct}% stale or missing
+              {renderCohort.staleMissingPct}% stale or missing
             </span>
           </section>
 
           <section className="flex flex-col gap-2">
             <h3 className="text-h5 text-ink">Suggested action</h3>
-            <p className="text-body-s text-body">{cohort.suggestedAction}</p>
+            <p className="text-body-s text-body">{renderCohort.suggestedAction}</p>
           </section>
 
           <section className="flex gap-2">
