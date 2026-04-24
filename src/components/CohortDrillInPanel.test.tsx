@@ -46,8 +46,7 @@ describe('CohortDrillInPanel', () => {
 
   it('renders a risk status badge reflecting the cohort risk', () => {
     render(<CohortDrillInPanel cohort={cohort} onClose={() => {}} />)
-    const badge = screen.getByRole('status')
-    expect(badge.textContent).toBe('On track')
+    expect(screen.getByText('On track')).toBeInTheDocument()
   })
 
   it('renders four coverage meters (one per source id)', () => {

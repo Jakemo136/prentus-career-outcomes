@@ -33,11 +33,11 @@ export function RiskStatusBadge({
   const layoutClass = fullWidth
     ? 'flex w-full justify-center'
     : 'inline-flex'
+  // Deliberately NO role="status": that's an ARIA live region, and a
+  // table with N rows would announce N live regions on every sort/filter
+  // — noisy and misleading. The visible text is the accessible name.
   return (
-    <span
-      role="status"
-      className={`${layoutClass} ${BASE} ${toneClass[status]}`}
-    >
+    <span className={`${layoutClass} ${BASE} ${toneClass[status]}`}>
       {labelMap[status]}
     </span>
   )
