@@ -31,6 +31,28 @@
   class-name assertions, no `data-testid` unless there is no
   accessible alternative.
 
+### Query selection rule
+
+**Prefer `getByText` / `queryByText` wherever possible.** Reach for
+`getByRole` only when one of these is true:
+
+1. **Interactive element** — `button`, `link`, `textbox`, `checkbox`,
+   etc. Role assertion catches regressions like `<button>` being
+   refactored to `<div onClick>`, which `getByText` would miss.
+2. **Heading with a level that matters** — `getByRole('heading', {
+   level: 1, name })` because `getByText` ignores heading level.
+3. **Form control with a visible label** — `getByLabelText(label)` is
+   the correct tool (it's a role-aware query under the hood).
+4. **The ARIA role is the contract being tested** — e.g.
+   `role="status"`, `role="progressbar"`, `role="dialog"`,
+   `role="img"` with an `aria-label`. The test exists to guarantee
+   the a11y surface; dropping the role query removes the guarantee.
+
+For plain display text (subtitles, paragraph copy, badge bodies with
+no role meaning, pure visual markers), use `getByText`. It's shorter
+and more direct, and doesn't falsely imply a role contract that
+isn't there.
+
 ## Data layer
 
 - All data is **static mock** in `src/mocks/readiness.ts`.
