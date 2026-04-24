@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import { formatShortDate } from '../lib/formatDate'
 import type { IssueSeverity, SourceHealth } from '../types/readiness'
 import { CoverageMeter } from './CoverageMeter'
 import { Icon } from './Icon'
@@ -35,13 +36,6 @@ const alertIconDiscClass: Record<IssueSeverity, string> = {
   caution: 'bg-alert-caution-accent',
 }
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-  })
-}
-
 export function SourceCard({ source, isHero = false }: SourceCardProps) {
   const nameId = useId()
   const borderClass = isHero
@@ -70,7 +64,7 @@ export function SourceCard({ source, isHero = false }: SourceCardProps) {
         tone={isHero ? 'brand' : 'threshold'}
       />
       <span className="text-body-xs text-muted">
-        Updated {formatDate(source.lastRefreshedAt)}
+        Updated {formatShortDate(source.lastRefreshedAt)}
       </span>
       {source.hasIssue && (() => {
         const severity: IssueSeverity = source.issueSeverity ?? 'caution'

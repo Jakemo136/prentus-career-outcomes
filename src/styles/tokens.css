@@ -218,6 +218,12 @@
   --radius-full: 9999px; /* circles, pills    */
 
   /* ─────────────────────────────────────────────────────────────
+   * WIDTHS — named width tokens for fixed layout primitives.
+   * Exposes `w-drawer` (side-panel / drill-in width).
+   * ───────────────────────────────────────────────────────────── */
+  --width-drawer: 480px;
+
+  /* ─────────────────────────────────────────────────────────────
    * SHADOWS — exposes `shadow-card`, `shadow-sm`, `shadow-md`, `shadow-lg`.
    * `shadow-card` matches Nav-item.svg's active-state drop shadow
    * (dy=14, blur=17, opacity=0.03).

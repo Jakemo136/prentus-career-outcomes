@@ -11,6 +11,7 @@
  *   responsible for returning focus when the panel closes.
  */
 import { useEffect, useId, useRef } from 'react'
+import { formatShortDate } from '../lib/formatDate'
 import type { Cohort, SourceId } from '../types/readiness'
 import { RiskStatusBadge } from './RiskStatusBadge'
 import { CoverageMeter } from './CoverageMeter'
@@ -36,13 +37,6 @@ const SOURCE_ORDER: SourceId[] = [
   'linkedin',
   'self-report',
 ]
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-  })
-}
 
 export function CohortDrillInPanel({
   cohort,
@@ -78,7 +72,7 @@ export function CohortDrillInPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby={headingId}
-        className="fixed top-0 right-0 h-screen w-[480px] bg-surface-raised shadow-lg z-50 flex flex-col"
+        className="fixed top-0 right-0 h-screen w-drawer bg-surface-raised shadow-lg z-50 flex flex-col"
       >
         <header className="flex items-center justify-between px-6 py-4 border-b border-edge-subtle">
           <div>
@@ -119,7 +113,7 @@ export function CohortDrillInPanel({
 
           <section className="flex flex-col gap-1">
             <span className="text-body-s text-body">
-              Last verified {formatDate(cohort.lastVerifiedAt)}
+              Last verified {formatShortDate(cohort.lastVerifiedAt)}
             </span>
             <span className="text-body-s text-body">
               {cohort.staleMissingPct}% stale or missing
