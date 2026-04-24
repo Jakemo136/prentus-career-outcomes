@@ -63,9 +63,16 @@ export function SourceCard({ source, isHero = false }: SourceCardProps) {
         Updated {formatDate(source.lastRefreshedAt)}
       </span>
       {source.hasIssue && (
-        <div className="flex items-center gap-1">
-          <Icon name="cancel-circle" size={14} className="text-red-500" />
-          <span className="text-body-xs text-red-700">{issueNote}</span>
+        <div
+          role="alert"
+          className="flex items-start gap-2 bg-alert-warning-bg rounded-xs px-3 py-2"
+        >
+          <Icon
+            name="cancel-circle"
+            size={14}
+            className="text-alert-warning-fg mt-0.5"
+          />
+          <span className="text-body-xs text-ink">{issueNote}</span>
         </div>
       )}
     </article>
