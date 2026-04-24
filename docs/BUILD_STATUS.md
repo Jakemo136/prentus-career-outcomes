@@ -40,6 +40,24 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 - `CohortDrillInPanel` focus trap + return-focus-on-close explicitly deferred. Current panel auto-focuses the close button on open; full trap + trigger-restore comes when the page owns the drill-in trigger (Wave 4).
 - "Program" label collides between `FilterBar` (`<select>`) and `CohortRiskTable` column header (`<button>`) — E2E works around by using `getByRole('combobox', { name })` for selects. Not a regression, just a reminder to keep ARIA roles distinct in future wiring.
 
+## Wave 4 — Page integration (final)
+
+- **Status:** PR open (awaiting merge).
+- **Branch:** `build/wave-4-page`.
+- **Components (1):** `ReadinessDashboardPage` + `useUrlState` hook.
+- **New files:** `src/components/ReadinessDashboardPage.tsx` + test, `src/lib/useUrlState.ts` + test.
+- **Unit tests:** 11 new (5 hook + 6 page). Full suite: 19 files, **107 tests passing**.
+- **E2E:** 4 new tests (13 total, all passing): direct-URL drill-in open, filter↔URL round-trip with reload persistence, row-click → URL → close → URL-cleared, and focus return to the triggering `<tr>` after drawer close.
+- **`App.tsx`:** collapses to a 14-line mount of `<ReadinessDashboardPage />` passing the mock data. The primitives gallery is gone — real page is the only thing left.
+- **FilterBar:** upgraded to `appearance-none` selects with an absolutely-positioned Prentus `<Icon name="chevron-down">` to replace the native OS chevron that didn't match Figma. Factored the four selects into a local `<SelectField>` helper.
+- **Focus return:** page tracks `lastTriggerId` in a `useRef`; on `cohortId → null` transition, `document.querySelector('tr[data-cohort-id=…]')?.focus()` restores focus. Required adding a stable `data-cohort-id` attribute on each row (semantic data, not a test-id).
+
+### Deferrals (still open)
+
+- `CohortDrillInPanel` full focus trap — current behavior only auto-focuses the close button on open and relies on natural tab order while open. Good-enough for prototype; a real implementation would use `focus-trap-react` or similar.
+- `prefers-reduced-motion` handling on the drawer slide-in is not wired yet. The drawer has no transition currently — it just mounts/unmounts. Adding a motion-respecting transition was scope-cut for this PR.
+- `e2e/smoke.spec.ts` still uses its own beforeEach pattern; could be consolidated with `dashboard.spec.ts` on a later pass.
+
 ## Wave 3 — Section wrappers
 
 - **Status:** PR open (awaiting merge).

@@ -120,10 +120,10 @@ test.describe('Readiness dashboard composition', () => {
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 
-  test('Primitive gallery still renders badges, trends, and meters', async ({
+  test('Primitives render through cohort table + KPI strip', async ({
     page,
   }) => {
-    // Status badges live in the gallery AND in the cohort table rows.
+    // Status badges appear in the cohort risk table rows.
     await expect(
       page.getByRole('status').filter({ hasText: 'On track' }).first(),
     ).toBeVisible();
@@ -131,14 +131,62 @@ test.describe('Readiness dashboard composition', () => {
       page.getByRole('status').filter({ hasText: 'At risk' }).first(),
     ).toBeVisible();
 
-    // Trend indicators show accessible names.
+    // Trend indicators appear in KPI cards with accessible names.
     await expect(
       page.getByRole('img', { name: /trending up/i }).first(),
     ).toBeVisible();
 
-    // Gallery coverage meter with explicit label.
+    // Hero KPI card renders a progressbar (the Verified Earnings tone=brand meter).
     await expect(
-      page.getByRole('progressbar', { name: /brand tone/i }),
-    ).toHaveAttribute('aria-valuenow', '30');
+      page.getByRole('progressbar').first(),
+    ).toBeVisible();
+  });
+
+  test('Direct URL ?cohort= auto-opens the drill-in drawer', async ({
+    page,
+  }) => {
+    await page.goto('/?cohort=cyb-sp25');
+    await expect(page.getByRole('dialog', { name: /cybersecurity/i })).toBeVisible();
+  });
+
+  test('Changing a filter round-trips through the URL', async ({ page }) => {
+    await page
+      .getByRole('combobox', { name: 'Program' })
+      .selectOption('Cybersecurity');
+    await expect(page).toHaveURL(/program=Cybersecurity/);
+
+    // Reload should preserve the filter state.
+    await page.reload();
+    await expect(
+      page.getByRole('combobox', { name: 'Program' }),
+    ).toHaveValue('Cybersecurity');
+  });
+
+  test('Row click writes ?cohort= to the URL; close clears it', async ({
+    page,
+  }) => {
+    const firstDataRow = page.getByRole('table').getByRole('row').nth(1);
+    await firstDataRow.click();
+    await expect(page).toHaveURL(/cohort=/);
+
+    await page.getByRole('button', { name: /close drill-in/i }).click();
+    await expect(page).not.toHaveURL(/cohort=/);
+  });
+
+  test('Focus returns to the triggering row when the drawer closes', async ({
+    page,
+  }) => {
+    const firstRow = page.getByRole('table').getByRole('row').nth(1);
+    const cohortId = await firstRow.getAttribute('data-cohort-id');
+    expect(cohortId).toBeTruthy();
+
+    await firstRow.click();
+    await page.keyboard.press('Escape');
+
+    // After close, the originally-clicked row regains focus.
+    const activeId = await page.evaluate(
+      () => (document.activeElement as HTMLElement | null)?.getAttribute('data-cohort-id') ?? null,
+    );
+    expect(activeId).toBe(cohortId);
   });
 });
