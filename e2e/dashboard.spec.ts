@@ -26,9 +26,7 @@ test.describe('Readiness dashboard composition', () => {
   test('Sidebar renders active item + disabled coming-soon items', async ({
     page,
   }) => {
-    const active = page
-      .getByRole('button', { name: /Career Outcomes Readiness/i })
-      .first();
+    const active = page.getByRole('button', { name: 'Readiness' });
     await expect(active).toHaveAttribute('aria-current', 'page');
 
     const disabled = page.getByRole('button', { name: 'Review Queue' });
