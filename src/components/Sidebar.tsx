@@ -1,3 +1,5 @@
+import markUrl from '../assets/prentus-logo-mark.svg'
+import wordmarkUrl from '../assets/prentus-logo-wordmark.svg'
 import { SidebarNavItem } from "./SidebarNavItem";
 
 export interface SidebarProps {
@@ -60,8 +62,9 @@ export function Sidebar({ activeKey = "readiness", onSelect }: SidebarProps) {
       aria-label="Primary navigation"
       className="w-60 h-screen bg-surface border-r border-edge-subtle flex flex-col gap-4 p-4"
     >
-      <div className="flex items-center">
-        <img src="/favicon.png" alt="Prentus" className="h-8 w-auto" />
+      <div className="flex items-center gap-2 px-2 py-1">
+        <img src={markUrl} alt="" className="h-6 w-auto" aria-hidden="true" />
+        <img src={wordmarkUrl} alt="Prentus" className="h-4 w-auto" />
       </div>
       <nav className="flex flex-col gap-1">
         {ITEMS.map((item) => (
