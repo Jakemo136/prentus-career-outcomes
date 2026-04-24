@@ -11,9 +11,9 @@ const labelMap: Record<RiskStatus, string> = {
 }
 
 const toneClass: Record<RiskStatus, string> = {
-  'on-track': 'bg-green-100 text-green-700',
-  watch: 'bg-orange-100 text-orange-700',
-  'at-risk': 'bg-red-100 text-red-700',
+  'on-track': 'bg-alert-success-bg text-ink',
+  watch: 'bg-alert-warning-bg text-ink',
+  'at-risk': 'bg-alert-error-bg text-ink',
 }
 
 export function RiskStatusBadge({ status }: RiskStatusBadgeProps) {

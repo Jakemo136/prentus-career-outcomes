@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Icon } from './Icon'
 
 export interface SidebarNavItemProps {
   label: string
@@ -14,24 +15,6 @@ const baseClass =
 const activeClass = 'bg-surface-raised shadow-card text-ink font-medium'
 const hoverClass = 'hover:bg-surface-muted'
 const disabledClass = 'text-muted opacity-60 cursor-not-allowed'
-
-function LockIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="w-3 h-3 text-muted"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
-  )
-}
 
 export function SidebarNavItem({
   label,
@@ -62,7 +45,7 @@ export function SidebarNavItem({
         </span>
       ) : null}
       <span className="flex-1">{label}</span>
-      {disabled ? <LockIcon /> : null}
+      {disabled ? <Icon name="lock" size={12} className="text-muted" /> : null}
     </button>
   )
 }
