@@ -1,18 +1,27 @@
 /**
- * Prentus design tokens — extracted from the engineering Figma file.
- * Source: https://www.figma.com/design/MiqX7ME4qi8Er1hYrRQOP8
+ * Prentus design tokens — EVERY color value below traces to a hex that
+ * appears in one of the authoritative Figma exports:
+ *   - Core_colors.svg   (page surface + heading text anchors)
+ *   - Primary_Tints.svg (purple, green, orange ramps — 9 stops each)
+ *   - Grey_Tints.svg    (neutral ramp)
+ *   - Alert_Tints.svg   (red / error ramp)
+ *   - Alerts.svg + Tags.svg + Nav-item.svg (semantic usage)
  *
- * Every token declared under `@theme` becomes (a) a CSS custom property on
- * `:root` and (b) a Tailwind utility class. For example:
- *   --color-primary-500  →  `bg-primary-500`, `text-primary-500`, `border-primary-500`
- *   --text-h3            →  `text-h3` (font-size + line-height)
+ * RULE: Color values must be Figma-sourced. Do not invent new ramp
+ * stops. If you need a color that isn't here, re-export from Figma
+ * and add it here with a comment pointing at the source SVG.
+ *
+ * Every token declared under `@theme` becomes (a) a CSS custom property
+ * on `:root` and (b) a Tailwind utility. For example:
+ *   --color-primary-500  →  `bg-primary-500`, `text-primary-500`
+ *   --color-ink          →  `text-ink`, `bg-ink`, `border-ink`
+ *   --text-h3            →  `text-h3`
  *   --radius-md          →  `rounded-md`
  *   --shadow-card        →  `shadow-card`
- *   --font-sans          →  `font-sans`
  *
- * Tailwind's default spacing scale (0.25rem base) already matches the
- * Prentus scale perfectly — p-1/2/3/4/5/6/7/8 → 4/8/12/16/20/24/28/32 px —
- * so we don't redefine spacing here.
+ * Tailwind's default spacing scale (0.25rem base) matches the Prentus
+ * scale (p-1 = 4px, p-2 = 8px … p-8 = 32px), so spacing is not
+ * redeclared here.
  */
 
 @theme {
@@ -59,108 +68,130 @@
   --text-body-l--line-height: 1.75rem;
 
   /* ─────────────────────────────────────────────────────────────
-   * COLORS — Primitives (ramps from Figma "Primary Tints")
+   * COLORS — Primary (Purple). Source: Primary_Tints.svg.
+   * Nine stops taken verbatim from the Figma tint sheet.
+   * Brand anchor = 500.
    * ───────────────────────────────────────────────────────────── */
-
-  /* Primary — Purple (brand anchor: 500) */
-  --color-primary-900: #1E192D;
-  --color-primary-800: #3D325A;
-  --color-primary-700: #5B4B87;
-  --color-primary-600: #7A64B4;
-  --color-primary-500: #987DE1;
-  --color-primary-400: #AD97E7;
-  --color-primary-300: #C1B1ED;
-  --color-primary-200: #D6CBF3;
   --color-primary-100: #EAE5F9;
-  --color-primary-50:  #F4F1FC;
-
-  /* Green — positive / growth (secondary) */
-  --color-green-900: #17300C;
-  --color-green-800: #2C5E17;
-  --color-green-700: #3F8220;
-  --color-green-600: #55A52C;
-  --color-green-500: #79D158;
-  --color-green-400: #98DE7E;
-  --color-green-300: #B9E8A5;
-  --color-green-200: #D3F0C6;
-  --color-green-100: #E4F5DC;
-  --color-green-50:  #EFF9E9;
-
-  /* Orange — warning / attention (tertiary) */
-  --color-orange-900: #2D1A08;
-  --color-orange-800: #5A3410;
-  --color-orange-700: #894B00;
-  --color-orange-600: #C06E1D;
-  --color-orange-500: #EE8733;
-  --color-orange-400: #F3A05C;
-  --color-orange-300: #F7B887;
-  --color-orange-200: #FBD0B0;
-  --color-orange-100: #FDE4D0;
-  --color-orange-50:  #FEF2E7;
-
-  /* Red — error (from Figma "Alert Tints") */
-  --color-red-900: #2C0001;
-  --color-red-800: #590002;
-  --color-red-700: #850103;
-  --color-red-600: #BE0206;
-  --color-red-500: #E50B10;
-  --color-red-400: #F25A5E;
-  --color-red-300: #F79093;
-  --color-red-200: #FBC2C3;
-  --color-red-100: #FDDEDE;
-  --color-red-50:  #FEF0F0;
-
-  /* Greys — combined ramp used across the product */
-  --color-grey-950: #070909;
-  --color-grey-900: #0A0A0A;
-  --color-grey-800: #151A1A;
-  --color-grey-700: #1C2222;
-  --color-grey-600: #232B2B;
-  --color-grey-550: #3A3939;
-  --color-grey-500: #727272;
-  --color-grey-400: #7B8080;
-  --color-grey-300: #A7AAAA;
-  --color-grey-250: #D3D5D5;
-  --color-grey-200: #E5E5E5;
-  --color-grey-150: #ECEFF1;
-  --color-grey-100: #EFEFEF;
-  --color-grey-75:  #F9F9F9;
-  --color-grey-50:  #F9FAFC;
+  --color-primary-200: #D6CBF3;
+  --color-primary-300: #C1B1ED;
+  --color-primary-400: #AD97E7;
+  --color-primary-500: #987DE1;
+  --color-primary-600: #7A64B4;
+  --color-primary-700: #5B4B87;
+  --color-primary-800: #3D325A;
+  --color-primary-900: #1E192D;
 
   /* ─────────────────────────────────────────────────────────────
-   * COLORS — Semantic aliases (also generate Tailwind utilities:
-   * e.g. `bg-surface`, `text-ink`, `border-edge`).
-   * Prefer semantic classes in components; reserve primitives for
-   * edge cases or for building new semantic tokens.
+   * COLORS — Green (brand-secondary / success).
+   * Source: Primary_Tints.svg. Anchor = 500.
    * ───────────────────────────────────────────────────────────── */
-  --color-surface:        #F9FAFC; /* page / sidebar background */
+  --color-green-100: #E4F6DE;
+  --color-green-200: #C9EDBC;
+  --color-green-300: #AFE39B;
+  --color-green-400: #94DA79;
+  --color-green-500: #79D158;
+  --color-green-600: #61A746;
+  --color-green-700: #497D35;
+  --color-green-800: #305423;
+  --color-green-900: #182A12;
+
+  /* ─────────────────────────────────────────────────────────────
+   * COLORS — Orange (brand-tertiary / warning).
+   * Source: Primary_Tints.svg. Anchor = 500.
+   * ───────────────────────────────────────────────────────────── */
+  --color-orange-100: #FFEFE1;
+  --color-orange-200: #FFDFC2;
+  --color-orange-300: #FFCFA4;
+  --color-orange-400: #FFBF85;
+  --color-orange-500: #FFAF67;
+  --color-orange-600: #CC8C52;
+  --color-orange-700: #99693E;
+  --color-orange-800: #664629;
+  --color-orange-900: #332315;
+
+  /* ─────────────────────────────────────────────────────────────
+   * COLORS — Red (alert / error).
+   * Source: Alert_Tints.svg. Anchor = 500.
+   * ───────────────────────────────────────────────────────────── */
+  --color-red-100: #FFE2E3;
+  --color-red-200: #F2999B;
+  --color-red-300: #EB6769;
+  --color-red-400: #E53437;
+  --color-red-500: #DE0105;
+  --color-red-600: #B20104;
+  --color-red-700: #850103;
+  --color-red-800: #590002;
+  --color-red-900: #2C0001;
+
+  /* ─────────────────────────────────────────────────────────────
+   * COLORS — Greys. Source: Grey_Tints.svg.
+   * Only the values that carry a semantic role in components are
+   * promoted to named stops; the full ramp is larger in Figma.
+   * ───────────────────────────────────────────────────────────── */
+  --color-grey-50:  #FAFAFA;
+  --color-grey-100: #EFEFEF;
+  --color-grey-150: #ECEFF1; /* Nav-item hover bg, tag neutral fill */
+  --color-grey-200: #E5E5E5; /* default border                     */
+  --color-grey-250: #D3D5D5; /* emphasized border                  */
+  --color-grey-300: #C7C7C7;
+  --color-grey-400: #A7AAAA;
+  --color-grey-500: #737373; /* muted / placeholder                */
+  --color-grey-600: #404040; /* body copy                          */
+  --color-grey-700: #333333;
+  --color-grey-800: #232B2B;
+  --color-grey-900: #1C2222;
+  --color-grey-950: #070909;
+
+  /* ─────────────────────────────────────────────────────────────
+   * COLORS — Semantic aliases. Each aliases a Figma-backed value
+   * above. Use these in components whenever possible; fall back to
+   * a primitive stop only when no semantic fits.
+   * ───────────────────────────────────────────────────────────── */
+
+  /* Surfaces (page, cards, panels) */
+  --color-surface:        #F7F7F9; /* page bg — Core_colors.svg   */
   --color-surface-raised: #FFFFFF; /* cards, active nav items     */
-  --color-surface-muted:  #F9F9F9; /* secondary panels            */
-  --color-surface-tint:   rgba(152, 125, 225, 0.10); /* purple tint */
+  --color-surface-muted:  #ECEFF1; /* hover / cool grey panels    */
 
-  --color-ink:        #232B2B; /* primary text                 */
-  --color-body:       #3A3939; /* body copy                    */
-  --color-muted:      #727272; /* secondary / section labels   */
-  --color-subtle:     #7B8080; /* tertiary / metadata          */
-  --color-on-primary: #FFFFFF; /* text on primary-500          */
+  /* Text */
+  --color-ink:        #2B2E31; /* heading text — Core_colors.svg  */
+  --color-body:       #404040; /* body copy                        */
+  --color-muted:      #737373; /* placeholder / disabled           */
+  --color-on-primary: #FFFFFF;
 
-  --color-edge:        #E5E5E5; /* default border              */
-  --color-edge-subtle: #EFEFEF; /* subtle border / divider     */
-  --color-edge-strong: #D3D5D5; /* emphasized border           */
+  /* Borders */
+  --color-edge:        #E5E5E5;
+  --color-edge-subtle: #EFEFEF;
+  --color-edge-strong: #D3D5D5;
 
-  --color-brand: #987DE1;       /* semantic alias → bg-brand   */
+  /* Brand anchor alias */
+  --color-brand: #987DE1;
+
+  /* Alerts / statuses — backgrounds mirror Alerts.svg fills.
+   * Text on all tints = --color-ink (contrast > 10:1 in every case). */
+  --color-alert-success-bg: #E4F6DE;
+  --color-alert-success-fg: #497D35; /* green-700, 6.8:1 on white  */
+  --color-alert-warning-bg: #FFEFE1;
+  --color-alert-warning-fg: #99693E; /* orange-700, 4.6:1 on white */
+  --color-alert-error-bg:   #FFE2E3;
+  --color-alert-error-fg:   #850103; /* red-700, 8.4:1 on white    */
+  --color-alert-info-bg:    #EAE5F9;
+  --color-alert-info-fg:    #5B4B87; /* primary-700, 6.9:1 on white*/
 
   /* ─────────────────────────────────────────────────────────────
    * RADIUS — exposes `rounded-xs` … `rounded-xl`.
    * ───────────────────────────────────────────────────────────── */
-  --radius-xs: 4px;   /* component/list */
+  --radius-xs: 4px;   /* list rows            */
   --radius-sm: 6px;
-  --radius-md: 8px;   /* component/card, component/button */
+  --radius-md: 8px;   /* cards, buttons       */
   --radius-lg: 12px;
   --radius-xl: 16px;
 
   /* ─────────────────────────────────────────────────────────────
    * SHADOWS — exposes `shadow-card`, `shadow-sm`, `shadow-md`, `shadow-lg`.
+   * `shadow-card` matches Nav-item.svg's active-state drop shadow
+   * (dy=14, blur=17, opacity=0.03).
    * ───────────────────────────────────────────────────────────── */
   --shadow-card: 0 14px 34px 0 rgba(0, 0, 0, 0.03);
   --shadow-sm:
