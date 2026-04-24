@@ -177,25 +177,45 @@
   /* Brand anchor alias */
   --color-brand: #987DE1;
 
-  /* Alerts / statuses — backgrounds mirror Alerts.svg fills.
-   * Text on all tints = --color-ink (contrast > 10:1 in every case). */
-  --color-alert-success-bg: #E4F6DE;
-  --color-alert-success-fg: #497D35; /* green-700, 6.8:1 on white  */
-  --color-alert-warning-bg: #FFEFE1;
-  --color-alert-warning-fg: #99693E; /* orange-700, 4.6:1 on white */
-  --color-alert-error-bg:   #FFE2E3;
-  --color-alert-error-fg:   #850103; /* red-700, 8.4:1 on white    */
-  --color-alert-info-bg:    #EAE5F9;
-  --color-alert-info-fg:    #5B4B87; /* primary-700, 6.9:1 on white*/
+  /* Alerts / statuses — semantic labels match the Prentus system:
+   *   success (green) — positive state
+   *   warning (red)   — hard problem: data wrong / missing / failure
+   *   caution (orange)— soft nudge: stale / aging / needs check
+   *   info    (purple)— informational / brand-flavored callout
+   *
+   * Backgrounds mirror Alerts.svg's -bg tints. `fg` tokens are the
+   * darker on-tint text color (pre-validated WCAG AA on white).
+   * `accent` tokens are the saturated fills used inside Alerts.svg's
+   * icon discs (the 12.5px-radius circles that sit behind the icon
+   * glyph in the alert pattern). */
+  --color-alert-success-bg:     #E4F6DE;
+  --color-alert-success-fg:     #497D35; /* green-700, 6.8:1 on white  */
+  --color-alert-success-accent: #79D158; /* from Alerts.svg icon disc  */
+
+  --color-alert-warning-bg:     #FFE2E3;
+  --color-alert-warning-fg:     #850103; /* red-700, 8.4:1 on white    */
+  --color-alert-warning-accent: #FF5151; /* from Alerts.svg icon disc  */
+
+  --color-alert-caution-bg:     #FFEFE1;
+  --color-alert-caution-fg:     #99693E; /* orange-700, 4.6:1 on white */
+  --color-alert-caution-accent: #FFAF67; /* orange anchor              */
+
+  --color-alert-info-bg:        #EAE5F9;
+  --color-alert-info-fg:        #5B4B87; /* primary-700, 6.9:1 on white*/
+  --color-alert-info-accent:    #987DE1; /* primary anchor             */
 
   /* ─────────────────────────────────────────────────────────────
-   * RADIUS — exposes `rounded-xs` … `rounded-xl`.
+   * RADIUS — exposes `rounded-xs` … `rounded-xl` + `rounded-full`.
+   * `rounded-full` is a geometric primitive (circle / pill), not
+   * drift — Alerts.svg uses <circle> for icon discs and avatars,
+   * and there's no way to express that in Tailwind without it.
    * ───────────────────────────────────────────────────────────── */
   --radius-xs: 4px;   /* list rows            */
   --radius-sm: 6px;
   --radius-md: 8px;   /* cards, buttons       */
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --radius-full: 9999px; /* circles, pills    */
 
   /* ─────────────────────────────────────────────────────────────
    * SHADOWS — exposes `shadow-card`, `shadow-sm`, `shadow-md`, `shadow-lg`.

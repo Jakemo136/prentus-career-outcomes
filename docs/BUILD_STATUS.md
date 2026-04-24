@@ -24,3 +24,18 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 
 - CoverageMeter color-state assertions deferred to `/design-audit` + `/visual-qa` — no accessible surface exists to assert tone from RTL without class-name checks.
 - Intra-wave full-suite vitest runs are noisy while siblings are mid-creation. Wave 2+ agents will run scoped tests only; orchestrator runs the full suite post-wave.
+
+## Wave 2 — Composer components
+
+- **Status:** PR open (awaiting merge).
+- **Branch:** `build/wave-2-composers`.
+- **Components (5):** `Sidebar`, `KpiCard`, `SourceCard`, `CohortRiskTable`, `CohortDrillInPanel`.
+- **Built in parallel:** single parallel Agent dispatch, scoped vitest per agent (no intra-wave full-suite noise this time). Zero conflicts, zero cross-contamination.
+- **Unit tests:** 33 new (5 + 6 + 6 + 8 + 8). Full suite: 14 files, **82 tests passing**.
+- **E2E:** replaced `primitives.spec.ts` with `dashboard.spec.ts` covering filter bar, KPI strip, cohort table sort, source cards, row-click → drill-in dialog, Escape close, plus residual primitive assertions. Full E2E suite: **9 tests passing** (1 smoke + 8 composition).
+- **Gallery:** `src/App.tsx` extended to compose all Wave 1 + Wave 2 components in a dashboard-like layout with mock data. Still a gallery, not the final page — Wave 4 replaces with `ReadinessDashboardPage` that owns URL state.
+
+### Notes / deferrals (wave 2)
+
+- `CohortDrillInPanel` focus trap + return-focus-on-close explicitly deferred. Current panel auto-focuses the close button on open; full trap + trigger-restore comes when the page owns the drill-in trigger (Wave 4).
+- "Program" label collides between `FilterBar` (`<select>`) and `CohortRiskTable` column header (`<button>`) — E2E works around by using `getByRole('combobox', { name })` for selects. Not a regression, just a reminder to keep ARIA roles distinct in future wiring.

@@ -58,7 +58,7 @@ export function CoverageMeter({
         </div>
       )}
       <div
-        className="h-2 w-full bg-edge-subtle rounded-xs overflow-hidden"
+        className="h-4 w-full bg-edge-subtle rounded-xs overflow-hidden"
         role="progressbar"
         aria-valuenow={rounded}
         aria-valuemin={0}

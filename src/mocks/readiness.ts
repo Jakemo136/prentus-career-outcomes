@@ -25,6 +25,7 @@ export const MOCK_SOURCES: SourceHealth[] = [
     trust: 'high',
     hasIssue: true,
     issueNote: 'Coverage below 40% — fewest records of any source.',
+    issueSeverity: 'warning',
   },
   {
     id: 'surveys',
@@ -50,6 +51,7 @@ export const MOCK_SOURCES: SourceHealth[] = [
     trust: 'low',
     hasIssue: true,
     issueNote: 'Last refreshed 47 days ago.',
+    issueSeverity: 'caution',
   },
 ]
 
