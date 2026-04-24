@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { parseFilters, writeFilters } from '../lib/urlParams'
-import { useUrlState } from '../lib/useUrlState'
+import { useUrlState } from './useUrlState'
 import type { DashboardFilters } from '../types/readiness'
 
 export interface FilterState {

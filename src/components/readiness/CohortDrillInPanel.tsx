@@ -11,11 +11,11 @@
  *   responsible for returning focus when the panel closes.
  */
 import { useEffect, useId, useRef } from 'react'
-import { formatShortDate } from '../lib/formatDate'
-import type { Cohort, SourceId } from '../types/readiness'
-import { RiskStatusBadge } from './RiskStatusBadge'
-import { CoverageMeter } from './CoverageMeter'
-import { Icon } from './Icon'
+import { formatShortDate } from '../../lib/formatDate'
+import type { Cohort, SourceId } from '../../types/readiness'
+import { RiskStatusBadge } from '../ui/RiskStatusBadge'
+import { CoverageMeter } from '../ui/CoverageMeter'
+import { Icon } from '../ui/Icon'
 
 export interface CohortDrillInPanelProps {
   /** Controlled: when null, panel renders nothing. */

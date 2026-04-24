@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { SourceHealthSection } from './SourceHealthSection'
-import type { SourceHealth } from '../types/readiness'
+import type { SourceHealth } from '../../types/readiness'
 
 const makeSource = (overrides: Partial<SourceHealth> = {}): SourceHealth => ({
   id: 'surveys',

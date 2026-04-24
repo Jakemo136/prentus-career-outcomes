@@ -1,4 +1,4 @@
-import { ComplianceReadinessPage } from './components/ComplianceReadinessPage'
+import { ComplianceReadinessPage } from './components/readiness/ComplianceReadinessPage'
 import {
   MOCK_COHORTS,
   MOCK_INSTITUTION,

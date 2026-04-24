@@ -1,7 +1,7 @@
 import { useId } from 'react'
-import type { Metric, TrendDirection } from '../types/readiness'
-import { TrendIndicator } from './TrendIndicator'
-import { CoverageMeter } from './CoverageMeter'
+import type { Metric, TrendDirection } from '../../types/readiness'
+import { TrendIndicator } from '../ui/TrendIndicator'
+import { CoverageMeter } from '../ui/CoverageMeter'
 
 export type KpiVariant = 'hero' | 'default' | 'urgent'
 

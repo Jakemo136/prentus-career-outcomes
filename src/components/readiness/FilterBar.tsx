@@ -1,6 +1,6 @@
 import { useId, type ReactNode } from 'react'
-import type { DashboardFilters, SourceId } from '../types/readiness'
-import { Icon } from './Icon'
+import type { DashboardFilters, SourceId } from '../../types/readiness'
+import { Icon } from '../ui/Icon'
 
 export interface FilterBarProps {
   filters: DashboardFilters

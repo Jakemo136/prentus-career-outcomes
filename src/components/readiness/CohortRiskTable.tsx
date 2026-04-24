@@ -1,9 +1,9 @@
 import { useState, type KeyboardEvent, type ReactNode } from 'react'
-import type { Cohort, RiskStatus } from '../types/readiness'
-import { CoverageMeter } from './CoverageMeter'
-import { RiskStatusBadge } from './RiskStatusBadge'
-import { TrendIndicator } from './TrendIndicator'
-import { Icon } from './Icon'
+import type { Cohort, RiskStatus } from '../../types/readiness'
+import { CoverageMeter } from '../ui/CoverageMeter'
+import { RiskStatusBadge } from '../ui/RiskStatusBadge'
+import { TrendIndicator } from '../ui/TrendIndicator'
+import { Icon } from '../ui/Icon'
 
 export type SortDirection = 'asc' | 'desc'
 

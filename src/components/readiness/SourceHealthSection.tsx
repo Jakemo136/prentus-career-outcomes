@@ -1,5 +1,5 @@
-import type { SourceHealth } from '../types/readiness'
-import { Section } from './Section'
+import type { SourceHealth } from '../../types/readiness'
+import { Section } from '../ui/Section'
 import { SourceCard } from './SourceCard'
 
 export interface SourceHealthSectionProps {

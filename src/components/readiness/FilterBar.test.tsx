@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { FilterBar } from './FilterBar'
-import type { DashboardFilters } from '../types/readiness'
+import type { DashboardFilters } from '../../types/readiness'
 
 const emptyFilters: DashboardFilters = {
   program: null,

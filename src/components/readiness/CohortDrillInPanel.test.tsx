@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CohortDrillInPanel } from './CohortDrillInPanel'
-import type { Cohort } from '../types/readiness'
+import type { Cohort } from '../../types/readiness'
 
 const cohort: Cohort = {
   id: 'fs-sp25',

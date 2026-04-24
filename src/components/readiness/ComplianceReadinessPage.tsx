@@ -1,21 +1,21 @@
 import { useMemo } from 'react'
-import { AppShell } from './AppShell'
+import { AppShell } from '../layout/AppShell'
 import { CohortDrillInPanel } from './CohortDrillInPanel'
 import { CohortRiskTable } from './CohortRiskTable'
 import { FilterBar } from './FilterBar'
 import { ReadinessSummaryStrip } from './ReadinessSummaryStrip'
-import { Section } from './Section'
+import { Section } from '../ui/Section'
 import { SourceHealthSection } from './SourceHealthSection'
-import { useFilterState } from '../hooks/useFilterState'
-import { useReturnFocus } from '../hooks/useReturnFocus'
-import { cohortsToCsv, downloadCsv } from '../lib/exportCsv'
-import { applyFilters } from '../lib/filters'
-import { computeKpisForCohorts } from '../lib/kpis'
+import { useFilterState } from '../../hooks/useFilterState'
+import { useReturnFocus } from '../../hooks/useReturnFocus'
+import { cohortsToCsv, downloadCsv } from '../../lib/exportCsv'
+import { applyFilters } from '../../lib/filters'
+import { computeKpisForCohorts } from '../../lib/kpis'
 import type {
   Cohort,
   InstitutionSnapshot,
   SourceHealth,
-} from '../types/readiness'
+} from '../../types/readiness'
 
 export interface ComplianceReadinessPageProps {
   institution: InstitutionSnapshot

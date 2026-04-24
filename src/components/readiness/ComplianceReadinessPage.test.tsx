@@ -8,7 +8,7 @@ import {
   MOCK_PROGRAMS,
   MOCK_SOURCES,
   MOCK_TERMS,
-} from '../mocks/readiness'
+} from '../../mocks/readiness'
 
 function renderPage() {
   return render(

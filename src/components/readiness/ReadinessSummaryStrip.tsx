@@ -1,6 +1,6 @@
-import type { InstitutionSnapshot } from '../types/readiness'
+import type { InstitutionSnapshot } from '../../types/readiness'
 import { KpiCard } from './KpiCard'
-import { Section } from './Section'
+import { Section } from '../ui/Section'
 
 type InstitutionKpis = InstitutionSnapshot['kpis']
 

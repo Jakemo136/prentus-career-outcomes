@@ -1,8 +1,8 @@
 import { useId } from 'react'
-import { formatShortDate } from '../lib/formatDate'
-import type { IssueSeverity, SourceHealth } from '../types/readiness'
-import { CoverageMeter } from './CoverageMeter'
-import { Icon } from './Icon'
+import { formatShortDate } from '../../lib/formatDate'
+import type { IssueSeverity, SourceHealth } from '../../types/readiness'
+import { CoverageMeter } from '../ui/CoverageMeter'
+import { Icon } from '../ui/Icon'
 
 export interface SourceCardProps {
   source: SourceHealth

@@ -1,5 +1,5 @@
-import markUrl from '../assets/prentus-logo-mark.svg'
-import wordmarkUrl from '../assets/prentus-logo-wordmark.svg'
+import markUrl from '../../assets/prentus-logo-mark.svg'
+import wordmarkUrl from '../../assets/prentus-logo-wordmark.svg'
 import { SidebarNavItem } from "./SidebarNavItem";
 
 export interface SidebarProps {
