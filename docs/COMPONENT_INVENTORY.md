@@ -1,4 +1,4 @@
-# Component Inventory — Cohort Readiness
+# Component Inventory — Compliance Readiness
 
 Generated from `UI_REQUIREMENTS.md`. One entry per component. Format is fixed (matches `/ui-interview` spec) so `/build-page` and dependency-resolver subagents can consume it.
 
@@ -36,29 +36,29 @@ Notes on field usage for this prototype:
 - Complexity: low
 - Build status: [ ] not started
 
-## CohortReadinessPage
-- Page: CohortReadiness
+## ComplianceReadinessPage
+- Page: ComplianceReadiness
 - Dependencies: AppShell, FilterBar, ReadinessSummaryStrip, CohortRiskTable, SourceHealthSection, CohortDrillInPanel
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## FilterBar
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: none
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## KpiCard
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: TrendIndicator
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## ReadinessSummaryStrip
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: KpiCard
 - GraphQL: none (mock)
 - Complexity: low
@@ -86,28 +86,28 @@ Notes on field usage for this prototype:
 - Build status: [ ] not started
 
 ## CohortRiskTable
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: RiskStatusBadge, TrendIndicator, CoverageMeter
 - GraphQL: none (mock)
 - Complexity: high
 - Build status: [ ] not started
 
 ## SourceCard
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: CoverageMeter
 - GraphQL: none (mock)
 - Complexity: medium
 - Build status: [ ] not started
 
 ## SourceHealthSection
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: SourceCard
 - GraphQL: none (mock)
 - Complexity: low
 - Build status: [ ] not started
 
 ## CohortDrillInPanel
-- Page: CohortReadiness
+- Page: ComplianceReadiness
 - Dependencies: CoverageMeter, RiskStatusBadge
 - GraphQL: none (mock)
 - Complexity: high

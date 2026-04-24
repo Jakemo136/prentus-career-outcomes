@@ -1,4 +1,4 @@
-# Build Plan — Cohort Readiness
+# Build Plan — Compliance Readiness
 
 Generated from `COMPONENT_INVENTORY.md`. All 15 components (page-specific + shared) grouped into parallelizable waves by dependency depth. Components in the same wave have no inter-wave dependency and MUST be dispatched in a single parallel Agent call.
 
@@ -10,7 +10,7 @@ No dependencies. Pure presentational primitives.
 |---|---|---|
 | `SidebarNavItem` | shared | low |
 | `TopBar` | shared | low |
-| `FilterBar` | CohortReadiness | medium |
+| `FilterBar` | ComplianceReadiness | medium |
 | `RiskStatusBadge` | shared | low |
 | `TrendIndicator` | shared | low |
 | `CoverageMeter` | shared | low |
@@ -20,24 +20,24 @@ No dependencies. Pure presentational primitives.
 | Component | Page | Depends on (all Wave 1) |
 |---|---|---|
 | `Sidebar` | shared | SidebarNavItem |
-| `KpiCard` | CohortReadiness | TrendIndicator |
-| `SourceCard` | CohortReadiness | CoverageMeter |
-| `CohortRiskTable` | CohortReadiness | RiskStatusBadge, TrendIndicator, CoverageMeter |
-| `CohortDrillInPanel` | CohortReadiness | CoverageMeter, RiskStatusBadge |
+| `KpiCard` | ComplianceReadiness | TrendIndicator |
+| `SourceCard` | ComplianceReadiness | CoverageMeter |
+| `CohortRiskTable` | ComplianceReadiness | RiskStatusBadge, TrendIndicator, CoverageMeter |
+| `CohortDrillInPanel` | ComplianceReadiness | CoverageMeter, RiskStatusBadge |
 
 ## Wave 3 — Sections + Shell (3)
 
 | Component | Page | Depends on |
 |---|---|---|
 | `AppShell` | shared | Sidebar (W2), TopBar (W1) |
-| `ReadinessSummaryStrip` | CohortReadiness | KpiCard (W2) |
-| `SourceHealthSection` | CohortReadiness | SourceCard (W2) |
+| `ReadinessSummaryStrip` | ComplianceReadiness | KpiCard (W2) |
+| `SourceHealthSection` | ComplianceReadiness | SourceCard (W2) |
 
 ## Wave 4 — Page (1)
 
 | Component | Page | Depends on |
 |---|---|---|
-| `CohortReadinessPage` | CohortReadiness | AppShell (W3), FilterBar (W1), ReadinessSummaryStrip (W3), CohortRiskTable (W2), SourceHealthSection (W3), CohortDrillInPanel (W2) |
+| `ComplianceReadinessPage` | ComplianceReadiness | AppShell (W3), FilterBar (W1), ReadinessSummaryStrip (W3), CohortRiskTable (W2), SourceHealthSection (W3), CohortDrillInPanel (W2) |
 
 ## Wave 0 — E2E scaffolding + prep (pre-Wave 1)
 

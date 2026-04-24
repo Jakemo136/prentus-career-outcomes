@@ -1,4 +1,4 @@
-# UI Requirements — Cohort Readiness
+# UI Requirements — Compliance Readiness
 
 Derived from `prentus_career_outcomes_readiness_dashboard_prd.md`. This prototype is a **single-page admin dashboard** with one optional drill-in. All data is mocked; there is no backend.
 
@@ -14,7 +14,7 @@ Narrative the page must land, in order:
 
 | Route | Page | Purpose |
 |---|---|---|
-| `/` | `CohortReadinessPage` | The entire prototype. One screen. |
+| `/` | `ComplianceReadinessPage` | The entire prototype. One screen. |
 | `/?cohort=<id>` | Same page, drill-in open | Query-param-driven drill-in panel so the URL is shareable. |
 
 Logged-out state is not implemented — assume the admin is already authenticated. There are no other routable pages.
@@ -40,7 +40,7 @@ Mobile / responsive: **desktop-first only**, breakpoint down to ~1024px. Below t
 
 ---
 
-## 3. Page: CohortReadinessPage
+## 3. Page: ComplianceReadinessPage
 
 ### 3.1 Layout (top → bottom)
 1. `FilterBar`

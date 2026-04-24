@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { AppShell } from './AppShell'
 import { CohortDrillInPanel } from './CohortDrillInPanel'
 import { CohortRiskTable } from './CohortRiskTable'
@@ -6,19 +6,18 @@ import { FilterBar } from './FilterBar'
 import { ReadinessSummaryStrip } from './ReadinessSummaryStrip'
 import { Section } from './Section'
 import { SourceHealthSection } from './SourceHealthSection'
+import { useFilterState } from '../hooks/useFilterState'
+import { useReturnFocus } from '../hooks/useReturnFocus'
 import { cohortsToCsv, downloadCsv } from '../lib/exportCsv'
 import { applyFilters } from '../lib/filters'
 import { computeKpisForCohorts } from '../lib/kpis'
-import { parseFilters, writeFilters } from '../lib/urlParams'
-import { useUrlState } from '../lib/useUrlState'
 import type {
   Cohort,
-  DashboardFilters,
   InstitutionSnapshot,
   SourceHealth,
 } from '../types/readiness'
 
-export interface CohortReadinessPageProps {
+export interface ComplianceReadinessPageProps {
   institution: InstitutionSnapshot
   cohorts: Cohort[]
   sources: SourceHealth[]
@@ -26,18 +25,22 @@ export interface CohortReadinessPageProps {
   terms: string[]
 }
 
-export function CohortReadinessPage({
+function findCohortRow(id: string): HTMLElement | null {
+  return document.querySelector<HTMLElement>(
+    `tr[data-cohort-id="${id}"]`,
+  )
+}
+
+export function ComplianceReadinessPage({
   institution,
   cohorts,
   sources,
   programs,
   terms,
-}: CohortReadinessPageProps) {
-  const [params, setParams] = useUrlState()
-  const filters = useMemo(() => parseFilters(params), [params])
-  const cohortId = params.get('cohort')
+}: ComplianceReadinessPageProps) {
+  const { filters, setFilters, cohortId, openCohort, closeCohort } =
+    useFilterState()
 
-  // Cohort lookup — tolerate a stale/unknown ?cohort= by rendering no drawer.
   const drillCohort = useMemo<Cohort | null>(() => {
     if (!cohortId) return null
     return cohorts.find((c) => c.id === cohortId) ?? null
@@ -53,37 +56,18 @@ export function CohortReadinessPage({
     [filteredCohorts, institution.kpis],
   )
 
-  // Remember the row that opened the drawer so we can restore focus on close.
-  const lastTriggerId = useRef<string | null>(null)
-  useEffect(() => {
-    if (!cohortId && lastTriggerId.current) {
-      const row = document.querySelector<HTMLElement>(
-        `tr[data-cohort-id="${lastTriggerId.current}"]`,
-      )
-      row?.focus()
-      lastTriggerId.current = null
-    }
-  }, [cohortId])
-
-  const handleFilterChange = (next: DashboardFilters) => {
-    setParams(writeFilters(params, next))
-  }
+  const rememberTrigger = useReturnFocus(cohortId, findCohortRow)
 
   const handleRowClick = (id: string) => {
-    lastTriggerId.current = id
-    const next = new URLSearchParams(params)
-    next.set('cohort', id)
-    setParams(next)
-  }
-
-  const handleClose = () => {
-    const next = new URLSearchParams(params)
-    next.delete('cohort')
-    setParams(next)
+    rememberTrigger(id)
+    openCohort(id)
   }
 
   const handleExport = () => {
-    downloadCsv('cohort-readiness.csv', cohortsToCsv(filteredCohorts))
+    downloadCsv(
+      'compliance-readiness.csv',
+      cohortsToCsv(filteredCohorts),
+    )
   }
 
   return (
@@ -98,7 +82,7 @@ export function CohortReadinessPage({
             filters={filters}
             programs={programs}
             terms={terms}
-            onChange={handleFilterChange}
+            onChange={setFilters}
           />
         </Section>
 
@@ -119,7 +103,7 @@ export function CohortReadinessPage({
         <SourceHealthSection sources={sources} />
       </div>
 
-      <CohortDrillInPanel cohort={drillCohort} onClose={handleClose} />
+      <CohortDrillInPanel cohort={drillCohort} onClose={closeCohort} />
     </AppShell>
   )
 }
