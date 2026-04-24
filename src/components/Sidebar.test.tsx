@@ -11,7 +11,7 @@ describe('Sidebar', () => {
 
   it('renders the Readiness item as the active item', () => {
     render(<Sidebar />)
-    const active = screen.getByRole('button', { name: /career outcomes readiness/i })
+    const active = screen.getByRole('button', { name: /compliance readiness/i })
     expect(active).toHaveAttribute('aria-current', 'page')
   })
 
@@ -40,7 +40,7 @@ describe('Sidebar', () => {
   it('calls onSelect with "readiness" when the active item is clicked', async () => {
     const onSelect = vi.fn()
     render(<Sidebar onSelect={onSelect} />)
-    const active = screen.getByRole('button', { name: /career outcomes readiness/i })
+    const active = screen.getByRole('button', { name: /compliance readiness/i })
     await userEvent.click(active)
     expect(onSelect).toHaveBeenCalledWith('readiness')
   })

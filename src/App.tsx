@@ -35,7 +35,7 @@ export function App() {
 
   return (
     <AppShell
-      pageTitle="Career Outcomes Readiness"
+      pageTitle="Compliance Readiness"
       pageSubtitle="Admin → Career Outcomes"
       onExport={() => undefined}
     >

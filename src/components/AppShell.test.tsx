@@ -51,7 +51,7 @@ describe('AppShell', () => {
         <div>content-here</div>
       </AppShell>,
     )
-    const readiness = screen.getByRole('button', { name: /career outcomes readiness/i })
+    const readiness = screen.getByRole('button', { name: /compliance readiness/i })
     expect(readiness).toHaveAttribute('aria-current', 'page')
   })
 })
