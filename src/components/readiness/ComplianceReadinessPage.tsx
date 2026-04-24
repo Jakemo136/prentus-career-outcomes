@@ -11,6 +11,7 @@ import { useReturnFocus } from '../../hooks/useReturnFocus'
 import { cohortsToCsv, downloadCsv } from '../../lib/exportCsv'
 import { applyFilters } from '../../lib/filters'
 import { computeKpisForCohorts } from '../../lib/kpis'
+import { EMPTY_FILTERS } from '../../lib/filters'
 import type {
   Cohort,
   InstitutionSnapshot,
@@ -96,6 +97,7 @@ export function ComplianceReadinessPage({
               cohorts={filteredCohorts}
               onRowClick={handleRowClick}
               selectedCohortId={drillCohort?.id ?? null}
+              onClearFilters={() => setFilters(EMPTY_FILTERS)}
             />
           </div>
         </Section>
