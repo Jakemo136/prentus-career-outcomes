@@ -20,7 +20,7 @@ export function RiskStatusBadge({ status }: RiskStatusBadgeProps) {
   return (
     <span
       role="status"
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-body-xs font-medium ${toneClass[status]}`}
+      className={`inline-flex items-center rounded-xs px-2.5 py-0.5 text-body-xs font-medium ${toneClass[status]}`}
     >
       {labelMap[status]}
     </span>

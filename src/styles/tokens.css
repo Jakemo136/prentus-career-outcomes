@@ -26,6 +26,15 @@
 
 @theme {
   /* ─────────────────────────────────────────────────────────────
+   * RESETS — Strip Tailwind's default color and radius namespaces
+   * so ONLY Figma-sourced tokens generate utilities. After these
+   * resets, classes like `rounded-full`, `rounded-2xl`, `bg-blue-500`,
+   * `text-slate-600` will NOT compile — only values declared below do.
+   * ───────────────────────────────────────────────────────────── */
+  --color-*: initial;
+  --radius-*: initial;
+
+  /* ─────────────────────────────────────────────────────────────
    * FONTS — Geist is the sole family (headings + body).
    * ───────────────────────────────────────────────────────────── */
   --font-sans:
