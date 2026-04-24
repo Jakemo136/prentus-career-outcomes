@@ -18,7 +18,7 @@ test.describe('Readiness dashboard composition', () => {
 
   test('TopBar renders page title as h1 + Export button', async ({ page }) => {
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Career Outcomes Readiness' }),
+      page.getByRole('heading', { level: 1, name: 'Compliance Readiness' }),
     ).toBeVisible();
     await expect(page.getByRole('button', { name: 'Export' })).toBeVisible();
   });
@@ -26,9 +26,9 @@ test.describe('Readiness dashboard composition', () => {
   test('Sidebar renders active item + disabled coming-soon items', async ({
     page,
   }) => {
-    const active = page
-      .getByRole('button', { name: /Career Outcomes Readiness/i })
-      .first();
+    // Sidebar active item and TopBar h1 both read "Compliance Readiness";
+    // filter by the button role to target the nav item.
+    const active = page.getByRole('button', { name: 'Compliance Readiness' });
     await expect(active).toHaveAttribute('aria-current', 'page');
 
     const disabled = page.getByRole('button', { name: 'Review Queue' });

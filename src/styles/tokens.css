@@ -164,7 +164,7 @@
   --color-surface-muted:  #ECEFF1; /* hover / cool grey panels    */
 
   /* Text */
-  --color-ink:        #2B2E31; /* heading text — Core_colors.svg  */
+  --color-ink:        #232B2B; /* heading text / "true black" — Core/Colour.png, Grey_Tints.svg */
   --color-body:       #404040; /* body copy                        */
   --color-muted:      #737373; /* placeholder / disabled           */
   --color-on-primary: #FFFFFF;
