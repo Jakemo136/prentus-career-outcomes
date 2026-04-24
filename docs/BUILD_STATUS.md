@@ -1,6 +1,6 @@
-# Build Status — ReadinessDashboard
+# Build Status — Cohort Readiness
 
-Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
+Plan: `docs/BUILD_PLAN_CohortReadiness.md`.
 
 ## Wave 0 — E2E scaffolding
 
@@ -18,7 +18,7 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 - **Built in parallel:** single parallel Agent dispatch, strict two-file-per-agent boundaries, zero merge conflicts.
 - **Unit tests:** 33 new (5 + 5 + 6 + 4 + 6 + 7). Full suite: 8 files, **44 tests passing**.
 - **E2E:** `e2e/primitives.spec.ts` added. Full E2E suite: **7 tests passing** (1 Wave 0 smoke + 6 Wave 1 primitives).
-- **Gallery:** `src/App.tsx` rewritten as a temporary primitives gallery so Playwright has a stable surface; slated for replacement by `ReadinessDashboardPage` in Wave 4.
+- **Gallery:** `src/App.tsx` rewritten as a temporary primitives gallery so Playwright has a stable surface; slated for replacement by `CohortReadinessPage` in Wave 4.
 
 ### Notes / deferrals
 
@@ -33,7 +33,7 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 - **Built in parallel:** single parallel Agent dispatch, scoped vitest per agent (no intra-wave full-suite noise this time). Zero conflicts, zero cross-contamination.
 - **Unit tests:** 33 new (5 + 6 + 6 + 8 + 8). Full suite: 14 files, **82 tests passing**.
 - **E2E:** replaced `primitives.spec.ts` with `dashboard.spec.ts` covering filter bar, KPI strip, cohort table sort, source cards, row-click → drill-in dialog, Escape close, plus residual primitive assertions. Full E2E suite: **9 tests passing** (1 smoke + 8 composition).
-- **Gallery:** `src/App.tsx` extended to compose all Wave 1 + Wave 2 components in a dashboard-like layout with mock data. Still a gallery, not the final page — Wave 4 replaces with `ReadinessDashboardPage` that owns URL state.
+- **Gallery:** `src/App.tsx` extended to compose all Wave 1 + Wave 2 components in a dashboard-like layout with mock data. Still a gallery, not the final page — Wave 4 replaces with `CohortReadinessPage` that owns URL state.
 
 ### Notes / deferrals (wave 2)
 
@@ -44,11 +44,11 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 
 - **Status:** PR open (awaiting merge).
 - **Branch:** `build/wave-4-page`.
-- **Components (1):** `ReadinessDashboardPage` + `useUrlState` hook.
-- **New files:** `src/components/ReadinessDashboardPage.tsx` + test, `src/lib/useUrlState.ts` + test.
+- **Components (1):** `CohortReadinessPage` + `useUrlState` hook.
+- **New files:** `src/components/CohortReadinessPage.tsx` + test, `src/lib/useUrlState.ts` + test.
 - **Unit tests:** 11 new (5 hook + 6 page). Full suite: 19 files, **107 tests passing**.
 - **E2E:** 4 new tests (13 total, all passing): direct-URL drill-in open, filter↔URL round-trip with reload persistence, row-click → URL → close → URL-cleared, and focus return to the triggering `<tr>` after drawer close.
-- **`App.tsx`:** collapses to a 14-line mount of `<ReadinessDashboardPage />` passing the mock data. The primitives gallery is gone — real page is the only thing left.
+- **`App.tsx`:** collapses to a 14-line mount of `<CohortReadinessPage />` passing the mock data. The primitives gallery is gone — real page is the only thing left.
 - **FilterBar:** upgraded to `appearance-none` selects with an absolutely-positioned Prentus `<Icon name="chevron-down">` to replace the native OS chevron that didn't match Figma. Factored the four selects into a local `<SelectField>` helper.
 - **Focus return:** page tracks `lastTriggerId` in a `useRef`; on `cohortId → null` transition, `document.querySelector('tr[data-cohort-id=…]')?.focus()` restores focus. Required adding a stable `data-cohort-id` attribute on each row (semantic data, not a test-id).
 
@@ -66,4 +66,4 @@ Plan: `docs/BUILD_PLAN_ReadinessDashboard.md`.
 - **Built in parallel:** single dispatch, strict two-file boundaries, scoped vitest. No conflicts.
 - **Unit tests:** 14 new (5 + 5 + 4). Full suite: 17 files, **96 tests passing**.
 - **E2E:** existing 9 tests still pass against the refactored `App.tsx` (now uses `AppShell` + `ReadinessSummaryStrip` + `SourceHealthSection` instead of inline layout). One selector updated: sidebar active item matches `name: 'Readiness'` (the actual Sidebar label is short; only the TopBar h1 has the full "Career Outcomes Readiness").
-- **Gallery/App.tsx:** refactored to use section wrappers — sidebar + topbar via `AppShell`, KPI strip via `ReadinessSummaryStrip`, source grid via `SourceHealthSection`. The cohort table and primitives showcase stay inline. Wave 4 replaces `App.tsx` entirely with `ReadinessDashboardPage` that owns URL state.
+- **Gallery/App.tsx:** refactored to use section wrappers — sidebar + topbar via `AppShell`, KPI strip via `ReadinessSummaryStrip`, source grid via `SourceHealthSection`. The cohort table and primitives showcase stay inline. Wave 4 replaces `App.tsx` entirely with `CohortReadinessPage` that owns URL state.

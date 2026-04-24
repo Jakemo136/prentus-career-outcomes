@@ -1,5 +1,5 @@
 /**
- * Domain types for the Career Outcomes Readiness Dashboard.
+ * Domain types for Cohort Readiness.
  *
  * These are the shapes the mock layer produces and the components
  * consume. When a real backend lands, the GraphQL codegen output

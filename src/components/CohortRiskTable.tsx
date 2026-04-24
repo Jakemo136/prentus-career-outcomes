@@ -207,7 +207,7 @@ export function CohortRiskTable({
                   <TrendIndicator direction={cohort.trend} />
                 </td>
                 <td className="py-3 px-3 align-middle">
-                  <RiskStatusBadge status={cohort.risk} />
+                  <RiskStatusBadge status={cohort.risk} fullWidth />
                 </td>
               </tr>
             )

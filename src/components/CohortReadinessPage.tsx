@@ -5,6 +5,7 @@ import { CohortRiskTable } from './CohortRiskTable'
 import { FilterBar } from './FilterBar'
 import { ReadinessSummaryStrip } from './ReadinessSummaryStrip'
 import { SourceHealthSection } from './SourceHealthSection'
+import { cohortsToCsv, downloadCsv } from '../lib/exportCsv'
 import { applyFilters } from '../lib/filters'
 import { computeKpisForCohorts } from '../lib/kpis'
 import { useUrlState } from '../lib/useUrlState'
@@ -16,7 +17,7 @@ import type {
   SourceId,
 } from '../types/readiness'
 
-export interface ReadinessDashboardPageProps {
+export interface CohortReadinessPageProps {
   institution: InstitutionSnapshot
   cohorts: Cohort[]
   sources: SourceHealth[]
@@ -68,13 +69,13 @@ function writeFilters(
   return next
 }
 
-export function ReadinessDashboardPage({
+export function CohortReadinessPage({
   institution,
   cohorts,
   sources,
   programs,
   terms,
-}: ReadinessDashboardPageProps) {
+}: CohortReadinessPageProps) {
   const [params, setParams] = useUrlState()
   const filters = useMemo(() => parseFilters(params), [params])
   const cohortId = params.get('cohort')
@@ -124,19 +125,28 @@ export function ReadinessDashboardPage({
     setParams(next)
   }
 
+  const handleExport = () => {
+    downloadCsv('cohort-readiness.csv', cohortsToCsv(filteredCohorts))
+  }
+
   return (
     <AppShell
       pageTitle="Compliance Readiness"
       pageSubtitle="Admin → Career Outcomes"
-      onExport={() => undefined}
+      onExport={handleExport}
     >
       <div className="flex flex-col gap-8">
-        <FilterBar
-          filters={filters}
-          programs={programs}
-          terms={terms}
-          onChange={handleFilterChange}
-        />
+        <section aria-labelledby="sec-filters" className="flex flex-col gap-3">
+          <h2 id="sec-filters" className="text-h4 text-ink">
+            Filter cohorts
+          </h2>
+          <FilterBar
+            filters={filters}
+            programs={programs}
+            terms={terms}
+            onChange={handleFilterChange}
+          />
+        </section>
 
         <ReadinessSummaryStrip kpis={kpis} />
 
@@ -144,7 +154,9 @@ export function ReadinessDashboardPage({
           <h2 id="sec-cohorts" className="text-h4 text-ink">
             Cohort risk
           </h2>
-          <div className="rounded-md border border-edge-subtle bg-surface-raised overflow-hidden">
+          {/* Cap height so Source Health's vertical position doesn't drift
+              with row count. Header stays visible; body scrolls within. */}
+          <div className="rounded-md border border-edge-subtle bg-surface-raised max-h-96 overflow-y-auto">
             <CohortRiskTable
               cohorts={filteredCohorts}
               onRowClick={handleRowClick}

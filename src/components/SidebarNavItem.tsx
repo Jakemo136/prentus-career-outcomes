@@ -14,7 +14,10 @@ const baseClass =
   'flex items-center gap-2 w-full rounded-md px-3 py-2 text-body-s text-body transition-colors text-left'
 const activeClass = 'bg-surface-raised shadow-card text-ink font-medium'
 const hoverClass = 'hover:bg-surface-muted'
-const disabledClass = 'text-muted opacity-60 cursor-not-allowed'
+// Disabled affordance uses muted text instead of parent opacity.
+// Parent opacity would cascade to children — dimming the lock icon
+// (which is explicitly text-ink) below its intended black.
+const disabledClass = 'text-muted cursor-not-allowed'
 
 export function SidebarNavItem({
   label,
