@@ -2,6 +2,36 @@
 
 **This file overrides workspace defaults for this project.**
 
+## Project structure
+
+```
+src/
+  components/
+    ui/          presentational primitives (Icon, RiskStatusBadge, …)
+    layout/      app chrome (AppShell, Sidebar, SidebarNavItem, TopBar)
+    readiness/   domain components (page, FilterBar, KpiCard, …)
+  hooks/         shared hooks (useUrlState, useFilterState, useReturnFocus)
+  lib/           pure utilities (filters, kpis, exportCsv, formatDate, urlParams)
+  mocks/         static mock data
+  types/         domain types
+  styles/        tokens.css (@theme block)
+  test/          test setup
+```
+
+- Tests stay **co-located** with their subject: `Foo.tsx` and `Foo.test.tsx` live in the same folder. Don't split tests into a sibling `tests/` tree.
+- `components/readiness/` is the only folder that's allowed to know about the domain. `ui/` and `layout/` must stay domain-free so they could move to a shared library.
+
+## Review + simplify gates (NOT optional)
+
+**Before opening any PR on a `build/*`, `feat/*`, `fix/*`, or `refactor/*` branch, invoke both:**
+
+1. `frontend-orchestration:code-review` — independent code review
+2. `frontend-orchestration:code-simplify` — DRY / simplification pass
+
+Their output should land as commits **before** `gh pr create`. A PreToolUse hook (`.claude/hooks/pre-pr-review-check.sh`) prints a reminder if recent commits don't show review/simplify evidence — heed the reminder, don't push past it.
+
+Why: the `/build-page` skill doesn't gate on these, so nothing enforces the step unless we do it ourselves. A review-before-merge review chain is standard hygiene; we're just making the chain explicit in a project that doesn't have human reviewers in the loop.
+
 ## Styling
 
 - **Tailwind CSS v4 utilities are the styling system.** Do NOT use
