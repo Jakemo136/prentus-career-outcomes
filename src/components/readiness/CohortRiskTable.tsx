@@ -22,6 +22,12 @@ export interface CohortRiskTableProps {
   onRowClick?: (cohortId: string) => void
   /** Highlighted row — usually the drill-in target. */
   selectedCohortId?: string | null
+  /**
+   * Called when the user clicks "Clear filters" in the empty state.
+   * When omitted, the empty-state message renders without a clear
+   * affordance.
+   */
+  onClearFilters?: () => void
 }
 
 const RISK_ORDER: Record<RiskStatus, number> = {
@@ -65,6 +71,7 @@ const selectedRowClass: Record<'yes' | 'no', string> = {
 export function CohortRiskTable({
   cohorts,
   onRowClick,
+  onClearFilters,
   selectedCohortId,
 }: CohortRiskTableProps) {
   const [sortKey, setSortKey] = useState<CohortSortKey>('risk')
@@ -161,6 +168,18 @@ export function CohortRiskTable({
               className="py-6 px-3 text-center text-muted"
             >
               No cohorts match these filters.
+              {onClearFilters && (
+                <>
+                  {' '}
+                  <button
+                    type="button"
+                    onClick={onClearFilters}
+                    className="text-primary-600 hover:text-primary-700 underline underline-offset-2"
+                  >
+                    Clear filters
+                  </button>
+                </>
+              )}
             </td>
           </tr>
         ) : (
