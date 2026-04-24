@@ -1,0 +1,14 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon/spinner">
+<g id="Vector">
+<path d="M7 3C7 2.44772 7.44772 2 8 2C8.55228 2 9 2.44772 9 3C9 3.55228 8.55228 4 8 4C7.44772 4 7 3.55228 7 3Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.75736 5.17157C3.36684 4.78105 3.36684 4.14788 3.75736 3.75736C4.14788 3.36684 4.78105 3.36684 5.17157 3.75736C5.5621 4.14788 5.5621 4.78105 5.17157 5.17157C4.78105 5.5621 4.14788 5.5621 3.75736 5.17157Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7 13C7 12.4477 7.44772 12 8 12C8.55228 12 9 12.4477 9 13C9 13.5523 8.55228 14 8 14C7.44772 14 7 13.5523 7 13Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.8284 12.2426C10.4379 11.8521 10.4379 11.219 10.8284 10.8284C11.219 10.4379 11.8521 10.4379 12.2426 10.8284C12.6332 11.219 12.6332 11.8521 12.2426 12.2426C11.8521 12.6332 11.219 12.6332 10.8284 12.2426Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 8C2 7.44772 2.44772 7 3 7C3.55228 7 4 7.44772 4 8C4 8.55228 3.55228 9 3 9C2.44772 9 2 8.55228 2 8Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.75736 12.2426C3.36684 11.8521 3.36684 11.219 3.75736 10.8284C4.14788 10.4379 4.78105 10.4379 5.17157 10.8284C5.5621 11.219 5.5621 11.8521 5.17157 12.2426C4.78105 12.6332 4.14788 12.6332 3.75736 12.2426Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 8C12 7.44772 12.4477 7 13 7C13.5523 7 14 7.44772 14 8C14 8.55228 13.5523 9 13 9C12.4477 9 12 8.55228 12 8Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.8284 5.17157C10.4379 4.78105 10.4379 4.14788 10.8284 3.75736C11.219 3.36684 11.8521 3.36684 12.2426 3.75736C12.6332 4.14788 12.6332 4.78105 12.2426 5.17157C11.8521 5.5621 11.219 5.5621 10.8284 5.17157Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
