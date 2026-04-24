@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { SourceCard } from './SourceCard'
-import type { SourceHealth } from '../types/readiness'
+import type { SourceHealth } from '../../types/readiness'
 
 const baseSource: SourceHealth = {
   id: 'verified-earnings',

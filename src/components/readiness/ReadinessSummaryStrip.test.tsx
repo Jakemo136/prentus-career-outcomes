@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { ReadinessSummaryStrip } from './ReadinessSummaryStrip'
-import type { Metric, InstitutionSnapshot } from '../types/readiness'
+import type { Metric, InstitutionSnapshot } from '../../types/readiness'
 
 type InstitutionKpis = InstitutionSnapshot['kpis']
 

@@ -123,13 +123,10 @@ test.describe('Readiness dashboard composition', () => {
   test('Primitives render through cohort table + KPI strip', async ({
     page,
   }) => {
-    // Status badges appear in the cohort risk table rows.
-    await expect(
-      page.getByRole('status').filter({ hasText: 'On track' }).first(),
-    ).toBeVisible();
-    await expect(
-      page.getByRole('status').filter({ hasText: 'At risk' }).first(),
-    ).toBeVisible();
+    // Status badges appear in the cohort risk table rows. No role="status"
+    // by design (would create N live regions on a sorted table).
+    await expect(page.getByText('On track').first()).toBeVisible();
+    await expect(page.getByText('At risk').first()).toBeVisible();
 
     // Trend indicators appear in KPI cards with accessible names.
     await expect(

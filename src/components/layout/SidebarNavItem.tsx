@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Icon } from './Icon'
+import { Icon } from '../ui/Icon'
 
 export interface SidebarNavItemProps {
   label: string

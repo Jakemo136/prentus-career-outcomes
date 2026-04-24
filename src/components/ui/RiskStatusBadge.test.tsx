@@ -18,8 +18,10 @@ describe('RiskStatusBadge', () => {
     expect(screen.getByText('At risk')).toBeInTheDocument()
   })
 
-  it('exposes role="status"', () => {
+  it('is not announced as a live region (no role="status")', () => {
+    // Many badges in a table would create N live regions and spam
+    // screen readers on sort/filter. Visible text is the a11y contract.
     render(<RiskStatusBadge status="on-track" />)
-    expect(screen.getByRole('status')).toHaveTextContent('On track')
+    expect(screen.queryByRole('status')).toBeNull()
   })
 })

@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react'
 
-const rawModules = import.meta.glob('../assets/icons/*.svg', {
+const rawModules = import.meta.glob('../../assets/icons/*.svg', {
   eager: true,
   query: '?raw',
   import: 'default',

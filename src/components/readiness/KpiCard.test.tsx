@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { KpiCard } from './KpiCard'
-import type { Metric } from '../types/readiness'
+import type { Metric } from '../../types/readiness'
 
 const pctMetric: Metric = {
   value: 62.4,

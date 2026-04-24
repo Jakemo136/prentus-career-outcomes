@@ -1,4 +1,4 @@
-import type { TrendDirection } from '../types/readiness'
+import type { TrendDirection } from '../../types/readiness'
 
 export interface TrendIndicatorProps {
   direction: TrendDirection

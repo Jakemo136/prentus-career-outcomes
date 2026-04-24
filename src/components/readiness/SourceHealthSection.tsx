@@ -1,5 +1,5 @@
-import { useId } from 'react'
-import type { SourceHealth } from '../types/readiness'
+import type { SourceHealth } from '../../types/readiness'
+import { Section } from '../ui/Section'
 import { SourceCard } from './SourceCard'
 
 export interface SourceHealthSectionProps {
@@ -7,13 +7,8 @@ export interface SourceHealthSectionProps {
 }
 
 export function SourceHealthSection({ sources }: SourceHealthSectionProps) {
-  const headingId = useId()
-
   return (
-    <section aria-labelledby={headingId} className="flex flex-col gap-3">
-      <h2 id={headingId} className="text-h4 text-ink">
-        Source health
-      </h2>
+    <Section heading="Source health">
       {sources.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {sources.map((source) => (
@@ -25,6 +20,6 @@ export function SourceHealthSection({ sources }: SourceHealthSectionProps) {
           ))}
         </div>
       )}
-    </section>
+    </Section>
   )
 }

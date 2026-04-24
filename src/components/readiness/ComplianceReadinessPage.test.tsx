@@ -1,18 +1,18 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { CohortReadinessPage } from './CohortReadinessPage'
+import { ComplianceReadinessPage } from './ComplianceReadinessPage'
 import {
   MOCK_COHORTS,
   MOCK_INSTITUTION,
   MOCK_PROGRAMS,
   MOCK_SOURCES,
   MOCK_TERMS,
-} from '../mocks/readiness'
+} from '../../mocks/readiness'
 
 function renderPage() {
   return render(
-    <CohortReadinessPage
+    <ComplianceReadinessPage
       institution={MOCK_INSTITUTION}
       cohorts={MOCK_COHORTS}
       sources={MOCK_SOURCES}
@@ -22,7 +22,7 @@ function renderPage() {
   )
 }
 
-describe('CohortReadinessPage', () => {
+describe('ComplianceReadinessPage', () => {
   beforeEach(() => {
     window.history.replaceState({}, '', '/')
   })

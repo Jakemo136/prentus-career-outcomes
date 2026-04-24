@@ -1,6 +1,6 @@
-import { useId } from 'react'
-import type { InstitutionSnapshot } from '../types/readiness'
+import type { InstitutionSnapshot } from '../../types/readiness'
 import { KpiCard } from './KpiCard'
+import { Section } from '../ui/Section'
 
 type InstitutionKpis = InstitutionSnapshot['kpis']
 
@@ -9,13 +9,8 @@ export interface ReadinessSummaryStripProps {
 }
 
 export function ReadinessSummaryStrip({ kpis }: ReadinessSummaryStripProps) {
-  const headingId = useId()
-
   return (
-    <section aria-labelledby={headingId} className="flex flex-col gap-3">
-      <h2 id={headingId} className="text-h4 text-ink">
-        Readiness summary
-      </h2>
+    <Section heading="Readiness summary">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <KpiCard
           label="Verified earnings coverage"
@@ -47,6 +42,6 @@ export function ReadinessSummaryStrip({ kpis }: ReadinessSummaryStripProps) {
           variant="default"
         />
       </div>
-    </section>
+    </Section>
   )
 }
