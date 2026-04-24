@@ -17,7 +17,7 @@ export function TopBar({ title, subtitle, onExport }: TopBarProps) {
         <button
           type="button"
           onClick={onExport}
-          className="bg-surface border border-edge-strong rounded-md px-3 py-1.5 text-body-s text-ink hover:bg-surface-muted transition-colors"
+          className="bg-surface-muted rounded-md px-4 py-2.5 text-body-s text-ink hover:bg-edge transition-colors"
         >
           Export
         </button>
